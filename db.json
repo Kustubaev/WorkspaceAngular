@@ -1,0 +1,445 @@
+{
+  "status": [
+    {
+      "id": "1",
+      "name": "Новое дело"
+    },
+    {
+      "id": "2",
+      "name": "Дело несут в архив"
+    },
+    {
+      "id": "3",
+      "name": "Дело в архиве"
+    },
+    {
+      "id": "4",
+      "name": "Дело несут менеджеру"
+    },
+    {
+      "id": "5",
+      "applicantsId": "f5d3b9d27c4eaf5da829f9bcf5b12345",
+      "name": "Дело у менеджера"
+    }
+  ],
+  "locations": [
+    {
+      "id": "0",
+      "name": "-"
+    },
+    {
+      "id": "6",
+      "name": "6 кабинет"
+    },
+    {
+      "id": "13",
+      "name": "13 кабинет"
+    },
+    {
+      "id": "14",
+      "name": "14 кабинет"
+    },
+    {
+      "id": "15",
+      "name": "Архив"
+    },
+    {
+      "id": "16",
+      "name": "16 кабинет"
+    },
+    {
+      "id": "17",
+      "name": "17 кабинет"
+    }
+  ],
+  "managers": [
+    {
+      "id": "1",
+      "firstName": "Ivan",
+      "lastName": "Ivanov",
+      "middleName": "Ivanovich"
+    },
+    {
+      "id": "2",
+      "firstName": "Petr",
+      "lastName": "Petrov",
+      "middleName": "Petrovich"
+    },
+    {
+      "id": "3",
+      "firstName": "Svetlana",
+      "lastName": "Svetlova",
+      "middleName": "Svetlanovna"
+    },
+    {
+      "id": "4",
+      "firstName": "Alexey",
+      "lastName": "Alexeev",
+      "middleName": "Alexeevich"
+    },
+    {
+      "id": "5",
+      "firstName": "Anna",
+      "lastName": "Ananova",
+      "middleName": "Ananovna"
+    },
+    {
+      "id": "6",
+      "firstName": "Oleg",
+      "lastName": "Olegov",
+      "middleName": "Olegovich"
+    },
+    {
+      "id": "7",
+      "firstName": "Maria",
+      "lastName": "Marina",
+      "middleName": "Marinovna"
+    },
+    {
+      "id": "8",
+      "firstName": "Dmitry",
+      "lastName": "Dmitriev",
+      "middleName": "Dmitrievich"
+    },
+    {
+      "id": "9",
+      "firstName": "Elena",
+      "lastName": "Eleneva",
+      "middleName": "Elenevna"
+    },
+    {
+      "id": "10",
+      "firstName": "Vladimir",
+      "lastName": "Vladimirov",
+      "middleName": "Vladimirovich"
+    },
+    {
+      "id": "11",
+      "firstName": "Natalia",
+      "lastName": "Natalyevna",
+      "middleName": "Natalyevna"
+    }
+  ],
+  "applicants": [
+    {
+      "id": "f5d3b9d27c4eaf5da829f9bcf5b12345",
+      "statusId": "2",
+      "managersId": "1",
+      "previousLocation": {
+        "locationsId": "13"
+      },
+      "currentLocation": {
+        "locationsId": "15"
+      },
+      "nextLocation": {
+        "locationsId": "6"
+      },
+      "archiveNumber": 12002,
+      "comment": "Тут будет комментарий",
+      "isSnils": true,
+      "passport": {
+        "isMain": true,
+        "isRegistration": true,
+        "isChangePassport": true
+      },
+      "diploma": {
+        "isTitlePage": true,
+        "isAttachmentPage": true
+      },
+      "isStatement": true,
+      "isОPD": false,
+      "isMarriage": false,
+      "isChangeName": false,
+      "person": {
+        "id": "719240001",
+        "firstName": "Ivan",
+        "lastName": "Ivanov",
+        "middleName": "Ivanovich",
+        "directions": [1, 5, 6, 7],
+        "dateOfBirth": "2000-01-01",
+        "snils": "12345678900"
+      }
+    }
+  ],
+
+  "teachers": [
+    {
+      "id": "1",
+      "studentId": "1",
+      "name": "John",
+      "lastName": "Doe",
+      "subject": "Math",
+      "averageGrade": 4.5,
+      "groups": ["АВб-22-2", "АВб-23-2"],
+      "classes": {
+        "first": 1,
+        "second": 2
+      }
+    },
+    {
+      "id": "2",
+      "studentId": "2",
+      "name": "Blice",
+      "lastName": "Johnson",
+      "subject": "Math",
+      "averageGrade": 4.2,
+      "groups": ["АВб-22-2", "АВб-23-3"],
+      "classes": {
+        "first": 1,
+        "second": 3
+      }
+    },
+    {
+      "id": "3",
+      "studentId": "2",
+      "name": "Robert",
+      "lastName": "Williams",
+      "subject": "Math",
+      "averageGrade": 4.8,
+      "groups": ["АВб-22-2", "АВб-23-2"],
+      "classes": {
+        "first": 2,
+        "second": 2
+      }
+    },
+    {
+      "id": "4",
+      "studentId": "10",
+      "name": "Robert",
+      "lastName": "Williams",
+      "subject": "Math",
+      "averageGrade": 4.8,
+      "groups": ["АВб-22-2", "АВб-23-2"],
+      "classes": {
+        "first": 2,
+        "second": 2
+      }
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "John",
+      "lastName": "Doe",
+      "group": "АВб-22-2",
+      "averageGrade": 4.5,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "2",
+      "name": "Blice",
+      "lastName": "Ivanov",
+      "group": "АВб-23-2",
+      "averageGrade": 4.2,
+      "currentStudyYear": 2
+    },
+    {
+      "id": "3",
+      "name": "Robert",
+      "lastName": "Williams",
+      "group": "АВб-23-2",
+      "averageGrade": 4.8,
+      "currentStudyYear": 1
+    },
+    {
+      "id": "4",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 3.2,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "5",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 3,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "7",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 2,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "8",
+      "name": "Ivan",
+      "lastName": "Zai",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "9",
+      "name": "Ivan",
+      "lastName": "Zio",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "10",
+      "name": "Aol",
+      "lastName": "ILL",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "11",
+      "name": "Ivan",
+      "lastName": "Aiva",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "12",
+      "name": "Ivan",
+      "lastName": "Bobob",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "13",
+      "name": "Alan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "14",
+      "name": "Oleg",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "15",
+      "name": "Zal",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "16",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "17",
+      "name": "Alis",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "18",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "19",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "20",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "21",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "22",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "23",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "24",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "25",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "26",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "27",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "28",
+      "name": "Zoro",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "29",
+      "name": "Zoro",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    }
+  ]
+}

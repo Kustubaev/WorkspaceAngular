@@ -1,0 +1,12 @@
+<div>Это главная страница!</div>
+@for (applicant of applicants; track applicant.id) {
+<div>
+  {{ applicant.id }} {{ applicant.person.firstName }}
+  {{ applicant.person.lastName }}
+  <button (click)="removeStudent(applicant)">-</button>
+</div>
+}@empty {
+<div>Загрузка...</div>
+}
+
+<button (click)="clickStudent()">Добавить студента</button>

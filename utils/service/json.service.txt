@@ -1,0 +1,224 @@
+//Пример использования service
+export class BookService extends JsonService<Student> {
+  constructor() {
+    super('http://localhost:5001/students');
+  }
+}
+
+		Пример использования метода GET!
+Объект id, сочетается с embed.
+Объект embed, сочетается со всем.
+Объект conditions, сочетается с [embed, range, pagination, sort].
+Объект range, сочетается с [embed, conditions, sort].
+Объект pagination, сочетается с [embed, conditions, sort].
+Объект sort, сочетается с [embed, conditions, range, pagination].
+
+Id - указывать существующий id.
+Embed - указать существующую таблицу, которая имеет связь с вызываемой таблицей, то есть один из объектов имеет свойство {название_другой_таблицуId: Id - элемента_из_той_таблицы}.
+Conditions 
+	name - указываем имя свойства таблицы, если вложенность, то пишем => 'a.b.c', для массивов => 'a[0].b'.
+	comparison - выбираем один из зарезервированных знаков '==' | '<' | '<=' | '>' | '>=' | '!=';
+	value - пишем значение в виде строки или числа.
+Range 
+	start - может быть как отрицательным, так и положительны числом.
+	end - может быть как отрицательным, так и положительны числом. Должно быть больше start. Не сочетается с limit.
+	limit - может быть как отрицательным, так и положительны числом. Должно быть больше start. Не сочетается с end.
+Pagination
+	page - номер страницы, начинается с 1.
+	count - количество элементов, начинается с 1, иначе будет = 10.
+sort
+	value - указываем имя свойства таблицы.
+	order - asc по возрастанию, desc по убыванию, сравнение производится, только в виде строки => '11' < '2'.
+
+this.studentService
+	.getStudents({
+    id: 2,
+    embed: 'teachers',
+    conditions: {
+      name: 'averageGrade',
+      comparison: '>=',
+      value: 4,
+    },
+    range: {
+      start: 0 | >max | -1 | >-max,
+      end: 1 | >max | -1,
+			limit: 1 | >max | -2,
+    },
+    pagination: {
+      page: 3,
+      count: 3,
+    },
+    sort: [
+      { value: 'lastName', order: 'desc' },
+      { value: 'name', order: 'asc' },
+    ],
+  })
+  .subscribe((data) => console.log(data));
+
+
+		Пример использования метода DElETE!
+Id - указывать существующий id. Обязателен.
+Dependent - указать существующую таблицу, которая имеет связь с вызываемой таблицей, то есть один из объектов имеет свойство {название_другой_таблицуId: Id - элемента_из_той_таблицы}. Удобно для удаления комментариев у удаляемого поста.
+
+this.studentService
+  .deleteStudents(student.id, 'teachers')
+  .subscribe((data) => {
+    this.students = this.students.filter((s) => s.id !== student.id);
+  });
+
+	Пример использования метода POST!
+Object - объект, который будет создан. Обязателен.
+
+const student: Student = {
+  id: '40',
+  name: 'Name',
+  lastName: 'lastName',
+  group: 'group 1',
+  averageGrade: 4,
+  currentStudyYear: 3,
+};
+
+this.studentService
+  .postStudents(student)
+  .subscribe((data) => this.students.push(data as Student));
+
+	Пример использования метода PUT! - полное обновление объекта.
+Id - указывать существующий id. Обязателен.
+Object - объект, который будет  полностью. Обязателен.
+
+this.studentService.putStudents(30, student).subscribe((data) => {console.log(data);});
+
+	Пример использования метода PATCH! - частичное обновление объекта.
+Id - указывать существующий id. Обязателен.
+Object - объект, который будет обновлён частично, поэтому свойства можно передавать выборочно. Обязателен.
+
+this.studentService.patchStudents(30, student).subscribe((data) => {console.log(data);});
+
+
+
+
+
+
+// Пример файла db.json
+{
+  "teachers": [
+    {
+      "id": "1",
+      "studentId": "1",
+      "name": "John",
+      "lastName": "Doe",
+      "subject": "Math",
+      "averageGrade": 4.5,
+      "groups": ["АВб-22-2", "АВб-23-2"],
+      "classes": {
+        "first": 1,
+        "second": 2
+      }
+    },
+    {
+      "id": "2",
+      "studentId": "2",
+      "name": "Blice",
+      "lastName": "Johnson",
+      "subject": "Math",
+      "averageGrade": 4.2,
+      "groups": ["АВб-22-2", "АВб-23-3"],
+      "classes": {
+        "first": 1,
+        "second": 3
+      }
+    },
+    {
+      "id": "3",
+      "studentId": "2",
+      "name": "Robert",
+      "lastName": "Williams",
+      "subject": "Math",
+      "averageGrade": 4.8,
+      "groups": ["АВб-22-2", "АВб-23-2"],
+      "classes": {
+        "first": 2,
+        "second": 2
+      }
+    },
+    {
+      "id": "4",
+      "studentId": "10",
+      "name": "Robert",
+      "lastName": "Williams",
+      "subject": "Math",
+      "averageGrade": 4.8,
+      "groups": ["АВб-22-2", "АВб-23-2"],
+      "classes": {
+        "first": 2,
+        "second": 2
+      }
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "John",
+      "lastName": "Doe",
+      "group": "АВб-22-2",
+      "averageGrade": 4.5,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "2",
+      "name": "Blice",
+      "lastName": "Ivanov",
+      "group": "АВб-23-2",
+      "averageGrade": 4.2,
+      "currentStudyYear": 2
+    },
+    {
+      "id": "3",
+      "name": "Robert",
+      "lastName": "Williams",
+      "group": "АВб-23-2",
+      "averageGrade": 4.8,
+      "currentStudyYear": 1
+    },
+    {
+      "id": "4",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 3.2,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "5",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 3,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "7",
+      "name": "Ivan",
+      "lastName": "Ivanov",
+      "group": "group 1",
+      "averageGrade": 2,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "8",
+      "name": "Ivan",
+      "lastName": "Zai",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    },
+    {
+      "id": "9",
+      "name": "Ivan",
+      "lastName": "Zio",
+      "group": "group 1",
+      "averageGrade": 4,
+      "currentStudyYear": 3
+    }
+  ]
+}
