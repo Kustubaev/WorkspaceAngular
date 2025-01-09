@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TuiRoot } from '@taiga-ui/core';
+import { TUI_DARK_MODE, TuiRoot } from '@taiga-ui/core';
 import { CustomFooterComponent } from './widgets/ui/custom-footer/custom-footer.component';
 import { CustomHeaderComponent } from './widgets/ui/custom-header/custom-header.component';
 
@@ -18,4 +18,5 @@ import { CustomHeaderComponent } from './widgets/ui/custom-header/custom-header.
 })
 export class AppComponent {
   title = 'archo-plus';
+  protected readonly darkMode = inject(TUI_DARK_MODE);
 }

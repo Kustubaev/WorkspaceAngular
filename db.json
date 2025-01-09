@@ -1,55 +1,50 @@
 {
-  "status": [
+  "statusBoolean": [
+    {
+      "id": "0",
+      "text": "Нет"
+    },
     {
       "id": "1",
-      "name": "Новое дело"
+      "text": "Есть"
     },
     {
       "id": "2",
-      "name": "Дело несут в архив"
+      "text": "Не нужно"
     },
     {
       "id": "3",
-      "name": "Дело в архиве"
-    },
-    {
-      "id": "4",
-      "name": "Дело несут менеджеру"
-    },
-    {
-      "id": "5",
-      "applicantsId": "f5d3b9d27c4eaf5da829f9bcf5b12345",
-      "name": "Дело у менеджера"
+      "text": "Донести"
     }
   ],
   "locations": [
     {
       "id": "0",
-      "name": "-"
+      "text": "-"
     },
     {
       "id": "6",
-      "name": "6 кабинет"
+      "text": "6 кабинет"
     },
     {
       "id": "13",
-      "name": "13 кабинет"
+      "text": "13 кабинет"
     },
     {
       "id": "14",
-      "name": "14 кабинет"
+      "text": "14 кабинет"
     },
     {
       "id": "15",
-      "name": "Архив"
+      "text": "Архив"
     },
     {
       "id": "16",
-      "name": "16 кабинет"
+      "text": "16 кабинет"
     },
     {
       "id": "17",
-      "name": "17 кабинет"
+      "text": "17 кабинет"
     }
   ],
   "managers": [
@@ -57,107 +52,325 @@
       "id": "1",
       "firstName": "Ivan",
       "lastName": "Ivanov",
-      "middleName": "Ivanovich"
+      "middleName": "Ivanovich",
+      "locationsId": "13"
     },
     {
       "id": "2",
       "firstName": "Petr",
       "lastName": "Petrov",
-      "middleName": "Petrovich"
+      "middleName": "Petrovich",
+      "locationsId": "16"
     },
     {
       "id": "3",
       "firstName": "Svetlana",
       "lastName": "Svetlova",
-      "middleName": "Svetlanovna"
+      "middleName": "Svetlanovna",
+      "locationsId": "13"
     },
     {
       "id": "4",
       "firstName": "Alexey",
       "lastName": "Alexeev",
-      "middleName": "Alexeevich"
+      "middleName": "Alexeevich",
+      "locationsId": "14"
     },
     {
       "id": "5",
       "firstName": "Anna",
       "lastName": "Ananova",
-      "middleName": "Ananovna"
+      "middleName": "Ananovna",
+      "locationsId": "6"
     },
     {
       "id": "6",
       "firstName": "Oleg",
       "lastName": "Olegov",
-      "middleName": "Olegovich"
+      "middleName": "Olegovich",
+      "locationsId": "17"
     },
     {
       "id": "7",
       "firstName": "Maria",
       "lastName": "Marina",
-      "middleName": "Marinovna"
+      "middleName": "Marinovna",
+      "locationsId": "17"
     },
     {
       "id": "8",
       "firstName": "Dmitry",
       "lastName": "Dmitriev",
-      "middleName": "Dmitrievich"
+      "middleName": "Dmitrievich",
+      "locationsId": "13"
     },
     {
       "id": "9",
       "firstName": "Elena",
       "lastName": "Eleneva",
-      "middleName": "Elenevna"
+      "middleName": "Elenevna",
+      "locationsId": "13"
     },
     {
       "id": "10",
       "firstName": "Vladimir",
       "lastName": "Vladimirov",
-      "middleName": "Vladimirovich"
+      "middleName": "Vladimirovich",
+      "locationsId": "16"
     },
     {
       "id": "11",
       "firstName": "Natalia",
       "lastName": "Natalyevna",
-      "middleName": "Natalyevna"
+      "middleName": "Natalyevna",
+      "locationsId": "17"
     }
   ],
   "applicants": [
     {
       "id": "f5d3b9d27c4eaf5da829f9bcf5b12345",
-      "statusId": "2",
-      "managersId": "1",
-      "previousLocation": {
-        "locationsId": "13"
-      },
-      "currentLocation": {
-        "locationsId": "15"
-      },
-      "nextLocation": {
-        "locationsId": "6"
-      },
+      "managersId": "2",
+      "previousLocationsId": "0",
+      "currentLocationsId": "15",
+      "nextLocationsId": "6",
       "archiveNumber": 12002,
       "comment": "Тут будет комментарий",
-      "isSnils": true,
+      "isSnils": "4",
       "passport": {
-        "isMain": true,
-        "isRegistration": true,
-        "isChangePassport": true
+        "isMain": "1",
+        "isRegistration": "1",
+        "isChangePassport": "1"
       },
       "diploma": {
-        "isTitlePage": true,
-        "isAttachmentPage": true
+        "isTitlePage": "1",
+        "isAttachmentPage": "1"
       },
-      "isStatement": true,
-      "isОPD": false,
-      "isMarriage": false,
-      "isChangeName": false,
+      "statement": {
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "1"
+      },
+      "opd": {
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "2",
+        "isFourth": "1"
+      },
+      "isMarriage": "3",
+      "isNameChange": "3",
       "person": {
         "id": "719240001",
         "firstName": "Ivan",
-        "lastName": "Ivanov",
-        "middleName": "Ivanovich",
+        "lastName": "Petrov",
+        "middleName": "Sergeevich",
         "directions": [1, 5, 6, 7],
         "dateOfBirth": "2000-01-01",
         "snils": "12345678900"
+      }
+    },
+    {
+      "id": "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+      "managersId": "2",
+      "previousLocationsId": "0",
+      "currentLocationsId": "16",
+      "nextLocationsId": "0",
+      "archiveNumber": 18005,
+      "comment": "Второй комментарий",
+      "isSnils": "1",
+      "passport": {
+        "isMain": "1",
+        "isRegistration": "1",
+        "isChangePassport": "0"
+      },
+      "diploma": {
+        "isTitlePage": "1",
+        "isAttachmentPage": "0"
+      },
+      "statement": {
+        "isFirst": "1",
+        "isSecond": "0",
+        "isThird": "0"
+      },
+      "opd": {
+        "isFirst": "1",
+        "isSecond": "0",
+        "isThird": "1",
+        "isFourth": "0"
+      },
+      "isMarriage": "1",
+      "isNameChange": "0",
+      "person": {
+        "id": "123450001",
+        "firstName": "Oleg",
+        "lastName": "Sidorov",
+        "middleName": "Vladimirovich",
+        "directions": [2, 4, 6],
+        "dateOfBirth": "1985-05-15",
+        "snils": "98765432101"
+      }
+    },
+    {
+      "id": "z9y8x7w6v5u4t3s2r1q0p9o8n7m6l5k",
+      "managersId": "1",
+      "previousLocationsId": "16",
+      "currentLocationsId": "15",
+      "nextLocationsId": "0",
+      "archiveNumber": 12004,
+      "comment": "Третий комментарий будет больше чем все остальные чтобы проверить как ведёт себя таблица при большом объёме слов. Третий комментарий будет больше чем все остальные чтобы проверить как ведёт себя таблица при большом объёме слов. Третий комментарий будет больше чем все остальные чтобы проверить как ведёт себя таблица при большом объёме слов",
+      "isSnils": "3",
+      "passport": {
+        "isMain": "1",
+        "isRegistration": "1",
+        "isChangePassport": "1"
+      },
+      "diploma": {
+        "isTitlePage": "1",
+        "isAttachmentPage": "1"
+      },
+      "statement": {
+        "isFirst": "0",
+        "isSecond": "1",
+        "isThird": "1"
+      },
+      "opd": {
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "0",
+        "isFourth": "1"
+      },
+      "isMarriage": "2",
+      "isNameChange": "1",
+      "person": {
+        "id": "987650001",
+        "firstName": "Alexey",
+        "lastName": "Ivanov",
+        "middleName": "Igorevich",
+        "directions": [3],
+        "dateOfBirth": "1990-12-20",
+        "snils": "12378945601"
+      }
+    },
+    {
+      "id": "1a2b3c4d5e6f7890abcdef1234567890",
+      "managersId": "3",
+      "previousLocationsId": "17",
+      "currentLocationsId": "15",
+      "nextLocationsId": "0",
+      "archiveNumber": 12005,
+      "comment": "Четвертый комментарий",
+      "isSnils": "4",
+      "passport": {
+        "isMain": "1",
+        "isRegistration": "0",
+        "isChangePassport": "1"
+      },
+      "diploma": {
+        "isTitlePage": "1",
+        "isAttachmentPage": "0"
+      },
+      "statement": {
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "0"
+      },
+      "opd": {
+        "isFirst": "0",
+        "isSecond": "1",
+        "isThird": "1",
+        "isFourth": "0"
+      },
+      "isMarriage": "1",
+      "isNameChange": "1",
+      "person": {
+        "id": "456780001",
+        "firstName": "Dmitry",
+        "lastName": "Fedorov",
+        "middleName": "Pavlovich",
+        "directions": [4, 7],
+        "dateOfBirth": "1988-02-02",
+        "snils": "15975348624"
+      }
+    },
+    {
+      "id": "111222333444555666777888999000aaa",
+      "managersId": "4",
+      "previousLocationsId": "16",
+      "currentLocationsId": "15",
+      "nextLocationsId": "13",
+      "archiveNumber": 12006,
+      "comment": "Пятый комментарий",
+      "isSnils": "1",
+      "passport": {
+        "isMain": "0",
+        "isRegistration": "1",
+        "isChangePassport": "0"
+      },
+      "diploma": {
+        "isTitlePage": "1",
+        "isAttachmentPage": "1"
+      },
+      "statement": {
+        "isFirst": "0",
+        "isSecond": "1",
+        "isThird": "1"
+      },
+      "opd": {
+        "isFirst": "1",
+        "isSecond": "0",
+        "isThird": "0",
+        "isFourth": "1"
+      },
+      "isMarriage": "3",
+      "isNameChange": "3",
+      "person": {
+        "id": "321090001",
+        "firstName": "Svetlana",
+        "lastName": "Petrova",
+        "middleName": "Sergeevna",
+        "directions": [2, 3],
+        "dateOfBirth": "1992-07-30",
+        "snils": "65432198700"
+      }
+    },
+    {
+      "id": "2b3c4d5e6f7g8h9i0j1k2l3m4n5o6q7",
+      "managersId": "7",
+      "previousLocationsId": "0",
+      "currentLocationsId": "16",
+      "nextLocationsId": "0",
+      "archiveNumber": 12007,
+      "comment": "Шестой комментарий",
+      "isSnils": "4",
+      "passport": {
+        "isMain": "1",
+        "isRegistration": "0",
+        "isChangePassport": "1"
+      },
+      "diploma": {
+        "isTitlePage": "0",
+        "isAttachmentPage": "1"
+      },
+      "statement": {
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "0"
+      },
+      "opd": {
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "1",
+        "isFourth": "0"
+      },
+      "isMarriage": "3",
+      "isNameChange": "3",
+      "person": {
+        "id": "111222003",
+        "firstName": "Natalia",
+        "lastName": "Vasilieva",
+        "middleName": "Alexandrovna",
+        "directions": [1, 6],
+        "dateOfBirth": "1995-09-12",
+        "snils": "32165498712"
       }
     }
   ],
@@ -440,6 +653,29 @@
       "group": "group 1",
       "averageGrade": 4,
       "currentStudyYear": 3
+    }
+  ],
+
+  "statusLocations": [
+    {
+      "id": "1",
+      "text": "Новое дело у менеджера"
+    },
+    {
+      "id": "2",
+      "text": "Дело несут в архив"
+    },
+    {
+      "id": "3",
+      "text": "Дело в архиве"
+    },
+    {
+      "id": "4",
+      "text": "Дело несут менеджеру"
+    },
+    {
+      "id": "5",
+      "text": "Дело у менеджера"
     }
   ]
 }

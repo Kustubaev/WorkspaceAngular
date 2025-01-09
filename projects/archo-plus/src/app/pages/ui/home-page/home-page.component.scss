@@ -1,0 +1,27 @@
+.filter__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.table__container {
+  width: 100%;
+}
+
+th {
+  padding: 0 0.25rem;
+}
+
+td {
+  padding: 0.5rem !important;
+}
+
+.td__comment {
+  width: 11%;
+}
+
+.comment {
+  max-height: 57px;
+  overflow-y: scroll;
+}

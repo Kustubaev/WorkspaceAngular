@@ -1,34 +1,34 @@
 export interface Applicant {
   id: string;
-  managersId: string;
-  previousLocation: {
-    locationsId: string;
-  };
-  currentLocation: {
-    locationsId: string;
-  };
-  nextLocation: {
-    locationsId: string;
-  };
+  managersId: string; //manager
+  previousLocationsId: string; //location
+  currentLocationsId: string; //location
+  nextLocationsId: string; //location
   archiveNumber: number;
   comment: string;
-  status: string;
-  isSnils: boolean;
+  isSnils: string; //statusBoolean
   passport: {
-    isMain: boolean;
-    isRegistration: boolean;
-    isChangePassport: boolean;
+    isMain: string; //statusBoolean
+    isRegistration: string; //statusBoolean
+    isChangePassport: string; //statusBoolean
   };
   diploma: {
-    isTitlePage: boolean;
-    isAttachmentPage: boolean;
+    isTitlePage: string; //statusBoolean
+    isAttachmentPage: string; //statusBoolean
   };
-  isStatement: {
-    statusId: string;
+  statement: {
+    isFirst: string; //statusBoolean
+    isSecond: string; //statusBoolean
+    isThird: string; //statusBoolean
   };
-  isOPD: boolean;
-  isMarriage: boolean;
-  isChangeName: boolean;
+  opd: {
+    isFirst: string; //statusBoolean
+    isSecond: string; //statusBoolean
+    isThird: string; //statusBoolean
+    isFourth: string; //statusBoolean
+  };
+  isMarriage: string; //statusBoolean
+  isNameChange: string; //statusBoolean
   person: {
     id: string;
     firstName: string;
@@ -39,3 +39,27 @@ export interface Applicant {
     snils: string;
   };
 }
+
+
+export interface statusBoolean {
+  id: string;
+  text: string;
+}
+export interface location {
+  id: string;
+  text: string;
+}
+
+export interface manager {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  locationsId: string;
+}
+
+
+// export interface statusLocation {
+//   id: string;
+//   text: string;
+// }

@@ -1,11 +1,8 @@
 <div class="container header__container">
-	<div class="header__logo">
-		<span class="header__logo-first__color">IT-Work</span>
-		<span class="header__logo-second__color">Ru</span>
-	</div>
-	<div class="header__box">
-		<a href="#" class="header__link">Работодателям</a>
-		<a href="#" class="header__link">Соискателям</a>
-		<button class="header__button">Войти</button>
-	</div>
+  <div class="header__logo">ArchoPlus</div>
+  <div class="header__box">
+    <button tuiButton type="button" (click)="darkMode.set(!darkMode())">
+      {{ darkMode() ? "Light" : "Dark" }}
+    </button>
+  </div>
 </div>

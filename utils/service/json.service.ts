@@ -93,7 +93,7 @@ type Range =
   | { start: number; end: number; limit?: never }
   | { start: number; limit: number; end?: never };
 
-interface getInterface {
+export interface getInterface {
   id?: string | number;
   embed?: string; //Соединяет таблицы, добавляет в левый объект правый объект как массив объектов. Связь будет только в том случае, если в одном из объектов есть ссылка на другой объект по типу "leftId".
   conditions?: {
