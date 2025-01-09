@@ -1,24 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { ApplicantsService } from '../../../service/applicants.service';
 
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import type {
-  TuiComparator,
-  TuiTablePaginationEvent,
-} from '@taiga-ui/addon-table';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import type { TuiTablePaginationEvent } from '@taiga-ui/addon-table';
 import {
   TuiReorder,
   TuiTable,
   TuiTablePagination,
 } from '@taiga-ui/addon-table';
-import {
-  TUI_DEFAULT_MATCHER,
-  TuiDay,
-  tuiDefaultSort,
-  TuiLet,
-  tuiToInt,
-} from '@taiga-ui/cdk';
+import { TuiLet } from '@taiga-ui/cdk';
 import {
   TuiButton,
   TuiDropdown,
@@ -33,88 +23,21 @@ import {
   TuiInputNumberModule,
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
-import { map, Observable, timer } from 'rxjs';
 
-import { FormControl } from '@angular/forms';
-import { tuiControlValue, tuiIsFalsy, tuiIsPresent } from '@taiga-ui/cdk';
-import {
-  BehaviorSubject,
-  combineLatest,
-  debounceTime,
-  filter,
-  share,
-  startWith,
-  switchMap,
-  tap,
-} from 'rxjs';
-import { getAllKeys } from '../../../utils/getAllKeys';
+import { BehaviorSubject } from 'rxjs';
+import { RestService } from '../../../service/rest.service';
 
-interface User {
-  readonly dob: TuiDay;
-  readonly name: string;
-}
+type Key = 'age' | 'dob' | 'name'; // нужны для сортировки
 
-const TODAY = TuiDay.currentLocal();
-
-const FIRST = [
-  'John',
-  'Jane',
-  'Jack',
-  'Jill',
-  'James',
-  'Joan',
-  'Jim',
-  'Julia',
-  'Joe',
-  'Julia',
-];
-
-const LAST = [
-  'Smith',
-  'West',
-  'Brown',
-  'Jones',
-  'Davis',
-  'Miller',
-  'Johnson',
-  'Jackson',
-  'Williams',
-  'Wilson',
-];
-
-type Key = 'age' | 'dob' | 'name';
-
-const DATA: readonly User[] = Array.from({ length: 300 }, () => ({
-  name: `${LAST[Math.floor(Math.random() * 10)]}, ${
-    FIRST[Math.floor(Math.random() * 10)]
-  }`,
-  dob: TODAY.append({ day: -Math.floor(Math.random() * 4000) - 7500 }),
-}));
-
-const KEYS: Record<string, Key> = {
-  Name: 'name',
-  Age: 'age',
-  'Date of Birth': 'dob',
-};
-
-function sortBy(
-  key: 'age' | 'dob' | 'name',
-  direction: -1 | 1
-): TuiComparator<User> {
-  return (a, b) =>
-    key === 'age'
-      ? direction * tuiDefaultSort(getAge(a), getAge(b))
-      : direction * tuiDefaultSort(a[key], b[key]);
-}
-
-function getAge({ dob }: User): number {
-  const years = TODAY.year - dob.year;
-  const months = TODAY.month - dob.month;
-  const days = TODAY.day - dob.day;
-  const offset = tuiToInt(months > 0 || (!months && days > 9));
-
-  return years + offset;
-}
+// function sortBy(
+//   key: 'age' | 'dob' | 'name',
+//   direction: -1 | 1
+// ): TuiComparator<User> {
+//   return (a, b) =>
+//     key === 'age'
+//       ? direction * tuiDefaultSort(getAge(a), getAge(b))
+//       : direction * tuiDefaultSort(a[key], b[key]);
+// }
 
 @Component({
   selector: 'app-home-page',
@@ -145,12 +68,21 @@ function getAge({ dob }: User): number {
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  private applicantsService: ApplicantsService = inject(ApplicantsService);
-  protected readonly applicants = this.applicantsService.applicants;
+  private restService: RestService = inject(RestService);
+  protected readonly applicants = this.restService.applicants;
+  protected readonly status = this.restService.status;
+  protected readonly locations = this.restService.locations;
+  protected readonly managers = this.restService.managers;
 
   ngOnInit() {
-    this.applicantsService
-      .getApplicants({
+    this.restService
+      .getAll({
+        applicants: {
+          pagination: {
+            page: this.page$.value + 1,
+            count: this.size$.value,
+          },
+        },
         // id: 2,
         // embed: 'locations',
         // conditions: {
@@ -167,11 +99,27 @@ export class HomePageComponent {
         //   count: 3,
         // },
         // sort: [
-        //   { value: 'lastName', order: 'desc' },
-        //   { value: 'id', order: 'asc' },
+        //   { value: 'managersId', order: 'desc' },
+        //   { value: 'currentLocationsId', order: 'asc' },
         // ],
       })
-      .subscribe(() => getAllKeys(this.applicants()[0]));
+      .subscribe((res) => {
+        console.log('res', res);
+        console.log('applicants', this.restService.applicants());
+        console.log('status', this.restService.status());
+        console.log('locations', this.restService.locations());
+        console.log('managers', this.restService.managers());
+      });
+  }
+
+  public getStatusText(elemId: string): string {
+    const statusItem = this.status()?.data?.find((s) => s.id === elemId);
+    return statusItem ? statusItem.text : '';
+  }
+
+  public getStatusColor(elemId: string): string {
+    const statusItem = this.status()?.data?.find((s) => s.id === elemId);
+    return statusItem ? statusItem.color : '';
   }
 
   private readonly size$ = new BehaviorSubject(10);
@@ -180,56 +128,35 @@ export class HomePageComponent {
   protected readonly direction$ = new BehaviorSubject<-1 | 1>(-1);
   protected readonly sorter$ = new BehaviorSubject<Key>('name');
 
-  protected readonly minAge = new FormControl(21);
-  protected readonly minAge$ = tuiControlValue<number>(this.minAge).pipe(
-    debounceTime(1000),
-    tap(() => this.page$.next(0))
-  );
+  // protected initial: readonly string[] = [
+  //   'Номер в архиве',
+  //   'Фамилия',
+  //   'Имя',
+  //   'Отчество',
+  //   'Менеджер',
+  //   'Находится',
+  //   'CНИЛС',
 
-  protected readonly request$ = combineLatest([
-    this.sorter$,
-    this.direction$,
-    this.page$,
-    this.size$,
-    this.minAge$,
-  ]).pipe(
-    // zero time debounce for a case when both key and direction change
-    debounceTime(0),
-    switchMap((query) => this.getData(...query).pipe(startWith(null))),
-    share()
-  );
+  //   '1-2',
+  //   '5-6',
+  //   '18-19',
 
-  protected initial: readonly string[] = [
-    'Номер в архиве',
-    'Фамилия',
-    'Имя',
-    'Отчество',
-    'Менеджер',
-    'Находится',
-    'CНИЛС',
+  //   'Титульный',
+  //   'Приложение',
 
-    '1-2',
-    '5-6',
-    '18-19',
+  //   'Заявление',
+  //   'Приложение',
+  //   'Согласие',
 
-    'Титульный',
-    'Приложение',
+  //   'Согласие 1',
+  //   'Согласие 2',
+  //   'Распространение 1',
+  //   'Распространение 2',
 
-    'Заявление',
-    'Приложение',
-    'Согласие',
-
-    'Согласие 1',
-    'Согласие 2',
-    'Распространение 1',
-    'Распространение 2',
-
-    'Брак',
-    'Смена ФИО',
-    'Комментарий',
-  ];
-
-  protected enabled = this.initial;
+  //   'Брак',
+  //   'Смена ФИО',
+  //   'Комментарий',
+  // ];
 
   protected columns: any = [
     'archiveNumber',
@@ -261,63 +188,23 @@ export class HomePageComponent {
     'comment',
   ];
 
-  protected dob = false;
-
-  protected search = '';
-
-  protected readonly loading$ = this.request$.pipe(map(tuiIsFalsy));
-
-  protected readonly total$ = this.request$.pipe(
-    filter(tuiIsPresent),
-    map(({ length }) => length),
-    startWith(1)
-  );
-
-  protected readonly data$: Observable<readonly User[]> = this.request$.pipe(
-    filter(tuiIsPresent),
-    map((users) => users.filter(tuiIsPresent)),
-    startWith([])
-  );
-
-  protected readonly getAge = getAge;
-
-  protected onEnabled(enabled: readonly string[]): void {
-    this.enabled = enabled;
-    this.columns = this.initial
-      .filter((column) => enabled.includes(column))
-      .map((column) => KEYS[column] ?? '');
-  }
-
-  protected onDirection(direction: -1 | 1): void {
-    this.direction$.next(direction);
-  }
-
   protected onPagination({ page, size }: TuiTablePaginationEvent): void {
     this.page$.next(page);
     this.size$.next(size);
+    this.restService
+      .getAll({
+        applicants: {
+          pagination: {
+            page: this.page$.value + 1,
+            count: this.size$.value,
+          },
+        },
+      })
+      .subscribe((res) => {
+        console.log('res', res);
+      });
   }
 
-  protected isMatch(value: unknown): boolean {
-    return !!this.search && TUI_DEFAULT_MATCHER(value, this.search);
-  }
-
-  private getData(
-    key: 'age' | 'dob' | 'name',
-    direction: -1 | 1,
-    page: number,
-    size: number,
-    minAge: number
-  ): Observable<ReadonlyArray<User | null>> {
-    console.info('Making a request');
-
-    const start = page * size;
-    const end = start + size;
-    const result = [...DATA]
-      .sort(sortBy(key, direction))
-      .filter((user) => getAge(user) >= minAge)
-      .map((user, index) => (index >= start && index < end ? user : null));
-
-    // Imitating server response
-    return timer(3000).pipe(map(() => result));
-  }
+  protected search = '';
+  protected minAge = new FormControl(0); // Удалить
 }

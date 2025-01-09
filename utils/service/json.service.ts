@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +66,25 @@ export class JsonService<T> {
       resultReq += `?${params.join('&')}`;
     }
 
-    return this.http.get<T[]>(resultReq);
+    return this.http.get<any>(resultReq).pipe(
+      map((result) => {
+        if (data?.pagination) {
+          return {
+            isLoading: false,
+            pagination: {
+              first: result.first,
+              prev: result.prev,
+              next: result.next,
+              last: result.last,
+              pages: result.pages,
+              items: result.items,
+            },
+            data: result.data ? [...result.data] : [],
+          };
+        }
+        return { loading: false, data: result ? [...result] : [] };
+      })
+    );
   }
 
   public postJson(object: T) {
@@ -110,6 +129,29 @@ export interface getInterface {
     | { value: string; order?: 'asc' | 'desc' }
     | { value: string; order?: 'asc' | 'desc' }[]
     | null;
+}
+
+interface resInterface<T> {
+  first?: number | null;
+  prev?: number | null;
+  next?: number | null;
+  last?: number | null;
+  pages?: number;
+  items?: number;
+  data?: T[];
+}
+
+export interface JsonResInterface<T> {
+  isLoading?: boolean;
+  pagination?: {
+    first: number | null;
+    prev: number | null;
+    next: number | null;
+    last: number | null;
+    pages: number;
+    items: number;
+  };
+  data: T[];
 }
 
 const enumConditions: { [key: string]: string } = {

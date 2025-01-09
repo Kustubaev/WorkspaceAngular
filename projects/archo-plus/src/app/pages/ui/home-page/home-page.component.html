@@ -18,9 +18,9 @@
   </tui-input-number>
 </div>
 
-<tui-loader [overlay]="true" [showLoader]="!!(loading$ | async)">
+<tui-loader [overlay]="true" [showLoader]="!!applicants().isLoading">
   <table
-    *ngIf="applicants() as data"
+    *ngIf="applicants()?.data?.length && applicants()?.data as data"
     tuiTable
     class="table table__container"
     [columns]="columns"
@@ -218,160 +218,135 @@
       [data]="sortedData"
     >
       <tr *ngFor="let item of sortedData" tuiTr>
-        <td
-          *tuiCell="'archiveNumber'"
-          tuiTd
-          [class.match]="isMatch(item.archiveNumber)"
-        >
+        <td *tuiCell="'archiveNumber'" tuiTd>
           {{ item.archiveNumber }}
         </td>
-        <td
-          *tuiCell="'lastName'"
-          tuiTd
-          [class.match]="isMatch(item.person.lastName)"
-        >
+        <td *tuiCell="'lastName'" tuiTd>
           {{ item.person.lastName }}
         </td>
-        <td
-          *tuiCell="'firstName'"
-          tuiTd
-          [class.match]="isMatch(item.person.firstName)"
-        >
+        <td *tuiCell="'firstName'" tuiTd>
           {{ item.person.firstName }}
         </td>
-        <td
-          *tuiCell="'middleName'"
-          tuiTd
-          [class.match]="isMatch(item.person.middleName)"
-        >
+        <td *tuiCell="'middleName'" tuiTd>
           {{ item.person.middleName }}
         </td>
-        <td
-          *tuiCell="'managersId'"
-          tuiTd
-          [class.match]="isMatch(item.managersId)"
-        >
+        <td *tuiCell="'managersId'" tuiTd>
           {{ item.managersId }}
         </td>
-        <td
-          *tuiCell="'currentLocationsId'"
-          tuiTd
-          [class.match]="isMatch(item.currentLocationsId)"
-        >
+        <td *tuiCell="'currentLocationsId'" tuiTd>
           {{ item.currentLocationsId }}
         </td>
-        <td *tuiCell="'isSnils'" tuiTd [class.match]="isMatch(item.isSnils)">
-          {{ item.isSnils }}
+        <td
+          *tuiCell="'isSnils'"
+          tuiTd
+          class="{{ getStatusColor(item.isSnils) }}"
+        >
+          {{ getStatusText(item.isSnils) }}
         </td>
 
         <td
           *tuiCell="'isMain'"
           tuiTd
-          [class.match]="isMatch(item.passport.isMain)"
+          class="{{ getStatusColor(item.passport.isMain) }}"
         >
-          {{ item.passport.isMain }}
+          {{ getStatusText(item.passport.isMain) }}
         </td>
         <td
           *tuiCell="'isRegistration'"
           tuiTd
-          [class.match]="isMatch(item.passport.isRegistration)"
+          class="{{ getStatusColor(item.passport.isRegistration) }}"
         >
-          {{ item.passport.isRegistration }}
+          {{ getStatusText(item.passport.isRegistration) }}
         </td>
         <td
           *tuiCell="'isChangePassport'"
           tuiTd
-          [class.match]="isMatch(item.passport.isChangePassport)"
+          class="{{ getStatusColor(item.passport.isChangePassport) }}"
         >
-          {{ item.passport.isChangePassport }}
+          {{ getStatusText(item.passport.isChangePassport) }}
         </td>
 
         <td
           *tuiCell="'isTitlePage'"
           tuiTd
-          [class.match]="isMatch(item.diploma.isTitlePage)"
+          class="{{ getStatusColor(item.diploma.isTitlePage) }}"
         >
-          {{ item.diploma.isTitlePage }}
+          {{ getStatusText(item.diploma.isTitlePage) }}
         </td>
         <td
           *tuiCell="'isAttachmentPage'"
           tuiTd
-          [class.match]="isMatch(item.diploma.isAttachmentPage)"
+          class="{{ getStatusColor(item.diploma.isAttachmentPage) }}"
         >
-          {{ item.diploma.isAttachmentPage }}
+          {{ getStatusText(item.diploma.isAttachmentPage) }}
         </td>
 
         <td
           *tuiCell="'statementIsFirst'"
           tuiTd
-          [class.match]="isMatch(item.statement.isFirst)"
+          class="{{ getStatusColor(item.statement.isFirst) }}"
         >
-          {{ item.statement.isFirst }}
+          {{ getStatusText(item.statement.isFirst) }}
         </td>
         <td
           *tuiCell="'statementIsSecond'"
           tuiTd
-          [class.match]="isMatch(item.statement.isSecond)"
+          class="{{ getStatusColor(item.statement.isSecond) }}"
         >
-          {{ item.statement.isSecond }}
+          {{ getStatusText(item.statement.isSecond) }}
         </td>
         <td
           *tuiCell="'statementIsThird'"
           tuiTd
-          [class.match]="isMatch(item.statement.isThird)"
+          class="{{ getStatusColor(item.statement.isThird) }}"
         >
-          {{ item.statement.isThird }}
+          {{ getStatusText(item.statement.isThird) }}
         </td>
 
         <td
           *tuiCell="'opdIsFirst'"
           tuiTd
-          [class.match]="isMatch(item.opd.isFirst)"
+          class="{{ getStatusColor(item.opd.isFirst) }}"
         >
-          {{ item.opd.isFirst }}
+          {{ getStatusText(item.opd.isFirst) }}
         </td>
         <td
           *tuiCell="'opdIsSecond'"
           tuiTd
-          [class.match]="isMatch(item.opd.isSecond)"
+          class="{{ getStatusColor(item.opd.isSecond) }}"
         >
-          {{ item.opd.isSecond }}
+          {{ getStatusText(item.opd.isSecond) }}
         </td>
         <td
           *tuiCell="'opdIsThird'"
           tuiTd
-          [class.match]="isMatch(item.opd.isThird)"
+          class="{{ getStatusColor(item.opd.isThird) }}"
         >
-          {{ item.opd.isThird }}
+          {{ getStatusText(item.opd.isThird) }}
         </td>
         <td
           *tuiCell="'opdIsFourth'"
           tuiTd
-          [class.match]="isMatch(item.opd.isFourth)"
+          class="{{ getStatusColor(item.opd.isFourth) }}"
         >
-          {{ item.opd.isFourth }}
+          {{ getStatusText(item.opd.isFourth) }}
         </td>
 
         <td
           *tuiCell="'isMarriage'"
           tuiTd
-          [class.match]="isMatch(item.isMarriage)"
+          class="{{ getStatusColor(item.isMarriage) }}"
         >
-          {{ item.isMarriage }}
+          {{ getStatusText(item.isMarriage) }}
         </td>
         <td
           *tuiCell="'isNameChange'"
           tuiTd
-          [class.match]="isMatch(item.isNameChange)"
+          class="{{ getStatusColor(item.isNameChange) }}"
         >
-          {{ item.isNameChange }}
+          {{ getStatusText(item.isNameChange) }}
         </td>
-        <td
-          *tuiCell="'comment'"
-          tuiTd
-          [class.match]="isMatch(item.comment)"
-          class="td__comment"
-        >
+        <td *tuiCell="'comment'" tuiTd class="td__comment">
           <tui-scrollbar class="comment">
             <div>
               {{ item.comment }}
@@ -380,13 +355,14 @@
         </td>
       </tr>
     </tbody>
+
     <tfoot>
       <tr>
         <td [colSpan]="columns.length">
           <tui-table-pagination
             class="tui-space_top-2"
             [page]="(page$ | async) || 0"
-            [total]="(total$ | async) || 0"
+            [total]="applicants()?.pagination?.items || 0"
             (paginationChange)="onPagination($event)"
           />
         </td>
@@ -394,3 +370,37 @@
     </tfoot>
   </table>
 </tui-loader>
+
+<!-- <div class="box">
+  @for (status of status(); track status.id) {
+  <div>
+    {{ status.id }} {{ status.text }}
+    <button>-</button>
+  </div>
+  }@empty {
+  <div>Загрузка...</div>
+  }
+</div>
+
+<div class="box">
+  @for (location of locations(); track location.id) {
+  <div>
+    {{ location.id }} {{ location.text }}
+    <button>-</button>
+  </div>
+  }@empty {
+  <div>Загрузка...</div>
+  }
+</div>
+
+<div class="box">
+  @for (manager of managers(); track manager.id) {
+  <div>
+    {{ manager.id }} {{ manager.firstName }} {{ manager.lastName }}
+    {{ manager.middleName }}
+    <button>-</button>
+  </div>
+  }@empty {
+  <div>Загрузка...</div>
+  }
+</div> -->
