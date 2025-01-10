@@ -6,6 +6,7 @@
 }
 
 .table__container {
+  width: 100%;
   background-color: var(--c-light);
   max-width: inherit;
   overflow-x: scroll;
@@ -19,6 +20,8 @@
 th {
   padding: 0 0.25rem;
 }
+
+
 
 td {
   padding: 0.5rem !important;

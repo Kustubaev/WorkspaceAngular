@@ -21,103 +21,225 @@
 <tui-loader [overlay]="true" [showLoader]="!!applicants().isLoading">
   <tui-scrollbar class="table__scrollbar">
     <table
-      *ngIf="applicants()?.data as data"
+      *ngIf="applicants()?.data?.length && applicants()?.data as data"
       tuiTable
       class="table table__container"
       [columns]="columns"
+      [direction]="(direction$ | async) || 1"
+      [tuiSortBy]="sorter$ | async"
+      (directionChange)="direction$.next($event)"
+      (tuiSortByChange)="sorter$.next($event!)"
     >
       <thead tuiThead>
         <tr tuiThGroup>
-          @for (item of titleArray().slice(0, 7); track $index) {
           <th
+            #archiveNumber
+            *tuiHead="'archiveNumber'"
             tuiTh
             rowspan="2"
-            *tuiHead="item.target"
-            [sorter]="null"
-            [sticky]="false"
+            tuiSortable
+            [sticky]="true"
             [resizable]="true"
-            (click)="onSortChange(item)"
           >
-            <app-th-icon [direction]="item.direction"> {{ item.title }} </app-th-icon>
+            Номер в архиве
+            <tui-icon
+              class="t-icon"
+              style="--t-icon: url(assets/taiga-ui/icons/chevrons-up-down.svg)"
+            ></tui-icon>
+            <tui-icon
+              class="t-icon"
+              style="--t-icon: url(assets/taiga-ui/icons/chevron-up.svg)"
+            ></tui-icon>
+            <tui-icon
+              class="t-icon"
+              style="--t-icon: url(assets/taiga-ui/icons/chevron-down.svg)"
+            ></tui-icon>
           </th>
-          }
-
           <th
-            *tuiHead="'isMain'"
-            colspan="3"
+            #lastName
+            *tuiHead="'lastName'"
+            rowspan="2"
+            tuiSortable
             tuiTh
-            [sorter]="null"
-            [resizable]="true"
+            [sticky]="true"
           >
-            Паспорт
+            Фамилия
           </th>
+          <th
+            #firstName
+            *tuiHead="'firstName'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+            options.sortIcons="asc"
+          >
+            Имя
+          </th>
+          <th
+            *tuiHead="'middleName'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Отчество
+          </th>
+          <th
+            *tuiHead="'managersId'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Менед-жер
+          </th>
+          <th
+            *tuiHead="'currentLocationsId'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Нахо-дится
+          </th>
+          <th
+            *tuiHead="'isSnils'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            CНИЛС
+          </th>
+
+          <th *tuiHead="'isMain'" colspan="3" tuiTh [sorter]="null">Паспорт</th>
           <ng-container *tuiHead="'isRegistration'" />
           <ng-container *tuiHead="'isChangePassport'" />
 
-          <th
-            *tuiHead="'isTitlePage'"
-            colspan="2"
-            tuiTh
-            [sorter]="null"
-            [resizable]="true"
-          >
+          <th *tuiHead="'isTitlePage'" colspan="2" tuiTh [sorter]="null">
             Диплом
           </th>
           <ng-container *tuiHead="'isAttachmentPage'" />
 
-          <th
-            *tuiHead="'statementIsFirst'"
-            colspan="3"
-            tuiTh
-            [sorter]="null"
-            [resizable]="true"
-          >
+          <th *tuiHead="'statementIsFirst'" colspan="3" tuiTh [sorter]="null">
             Заявление
           </th>
           <ng-container *tuiHead="'statementIsSecond'" />
           <ng-container *tuiHead="'statementIsThird'" />
 
-          <th
-            *tuiHead="'opdIsFirst'"
-            colspan="4"
-            tuiTh
-            [sorter]="null"
-            [resizable]="true"
-          >
-            ОПД
-          </th>
+          <th *tuiHead="'opdIsFirst'" colspan="4" tuiTh [sorter]="null">ОПД</th>
           <ng-container *tuiHead="'opdIsSecond'" />
           <ng-container *tuiHead="'opdIsThird'" />
           <ng-container *tuiHead="'opdIsFourth'" />
 
-          @for (item of titleArray().slice(19, 22); track $index) {
           <th
-            tuiTh
+            *tuiHead="'isMarriage'"
             rowspan="2"
-            *tuiHead="item.target"
-            [sorter]="null"
-            [sticky]="false"
-            [resizable]="true"
-            (click)="onSortChange(item)"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
           >
-            <app-th-icon [direction]="item.direction"> {{ item.title }} </app-th-icon>
+            Брак
           </th>
-          }
+          <th
+            *tuiHead="'isNameChange'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Смена ФИО
+          </th>
+          <th
+            *tuiHead="'comment'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Комментарий
+          </th>
         </tr>
 
         <tr tuiThGroup>
-          @for (item of titleArray().slice(7, 19); track $index) {
-          <th
-            tuiTh
-            *tuiHead="item.target"
-            [sorter]="null"
-            [sticky]="false"
-            [resizable]="true"
-            (click)="onSortChange(item)"
-          >
-            <app-th-icon [direction]="item.direction"> {{ item.title }} </app-th-icon>
+          <th *tuiHead="'isMain'" tuiSortable tuiTh [requiredSort]="true">
+            1-2
           </th>
-          }
+          <th
+            *tuiHead="'isRegistration'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            5-6
+          </th>
+          <th
+            *tuiHead="'isChangePassport'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            18-19
+          </th>
+
+          <th *tuiHead="'isTitlePage'" tuiSortable tuiTh [requiredSort]="true">
+            Тит
+          </th>
+          <th
+            *tuiHead="'isAttachmentPage'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Прл
+          </th>
+
+          <th
+            *tuiHead="'statementIsFirst'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Заяв
+          </th>
+          <th
+            *tuiHead="'statementIsSecond'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Прл
+          </th>
+          <th
+            *tuiHead="'statementIsThird'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Согл
+          </th>
+
+          <th *tuiHead="'opdIsFirst'" tuiSortable tuiTh [requiredSort]="true">
+            С1
+          </th>
+          <th *tuiHead="'opdIsSecond'" tuiSortable tuiTh [requiredSort]="true">
+            С2
+          </th>
+          <th *tuiHead="'opdIsThird'" tuiSortable tuiTh [requiredSort]="true">
+            Р1
+          </th>
+          <th *tuiHead="'opdIsFourth'" tuiSortable tuiTh [requiredSort]="true">
+            Р2
+          </th>
         </tr>
       </thead>
 
@@ -280,8 +402,6 @@
     </table>
   </tui-scrollbar>
 </tui-loader>
-
-<button type="button" (click)="reload()">Нажми на меня</button>
 
 <!-- <div class="box">
   @for (status of status(); track status.id) {

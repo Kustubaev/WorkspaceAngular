@@ -54,6 +54,8 @@ export class JsonService<T> {
         ? data.sort
             .map((s) => `${s.order === 'desc' ? '-' : ''}${s.value}`)
             .join(',')
+        : typeof data.sort === 'string'
+        ? data.sort
         : `${data.sort.order === 'asc' ? '' : '-'}${data.sort.value}`;
       params.push(`_sort=${sortParams}`);
     }
@@ -128,6 +130,7 @@ export interface getInterface {
   sort?:
     | { value: string; order?: 'asc' | 'desc' }
     | { value: string; order?: 'asc' | 'desc' }[]
+    | string
     | null;
 }
 
