@@ -24,10 +24,32 @@ import {
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 import { RestService } from '../../../service/rest.service';
 
-type Key = 'age' | 'dob' | 'name'; // нужны для сортировки
+type Key =
+  | 'archiveNumber'
+  | 'lastName'
+  | 'firstName'
+  | 'middleName'
+  | 'managersId'
+  | 'currentLocationsId'
+  | 'isSnils'
+  | 'isMain'
+  | 'isRegistration'
+  | 'isChangePassport'
+  | 'isTitlePage'
+  | 'isAttachmentPage'
+  | 'statementIsFirst'
+  | 'statementIsSecond'
+  | 'statementIsThird'
+  | 'opdIsFirst'
+  | 'opdIsSecond'
+  | 'opdIsThird'
+  | 'opdIsFourth'
+  | 'isMarriage'
+  | 'isNameChange'
+  | 'comment';
 
 // function sortBy(
 //   key: 'age' | 'dob' | 'name',
@@ -74,6 +96,14 @@ export class HomePageComponent {
   protected readonly locations = this.restService.locations;
   protected readonly managers = this.restService.managers;
 
+  constructor() {
+    combineLatest([this.sorter$, this.direction$]).subscribe(
+      ([sorter, direction]) => {
+        this.onSortChange(sorter, direction);
+      }
+    );
+  }
+
   ngOnInit() {
     this.restService
       .getAll({
@@ -105,59 +135,20 @@ export class HomePageComponent {
       })
       .subscribe((res) => {
         console.log('res', res);
-        console.log('applicants', this.restService.applicants());
-        console.log('status', this.restService.status());
-        console.log('locations', this.restService.locations());
-        console.log('managers', this.restService.managers());
       });
   }
 
+  // Функции вывода статуса
   public getStatusText(elemId: string): string {
     const statusItem = this.status()?.data?.find((s) => s.id === elemId);
     return statusItem ? statusItem.text : '';
   }
-
   public getStatusColor(elemId: string): string {
     const statusItem = this.status()?.data?.find((s) => s.id === elemId);
     return statusItem ? statusItem.color : '';
   }
 
-  private readonly size$ = new BehaviorSubject(10);
-  protected readonly page$ = new BehaviorSubject(0);
-
-  protected readonly direction$ = new BehaviorSubject<-1 | 1>(-1);
-  protected readonly sorter$ = new BehaviorSubject<Key>('name');
-
-  // protected initial: readonly string[] = [
-  //   'Номер в архиве',
-  //   'Фамилия',
-  //   'Имя',
-  //   'Отчество',
-  //   'Менеджер',
-  //   'Находится',
-  //   'CНИЛС',
-
-  //   '1-2',
-  //   '5-6',
-  //   '18-19',
-
-  //   'Титульный',
-  //   'Приложение',
-
-  //   'Заявление',
-  //   'Приложение',
-  //   'Согласие',
-
-  //   'Согласие 1',
-  //   'Согласие 2',
-  //   'Распространение 1',
-  //   'Распространение 2',
-
-  //   'Брак',
-  //   'Смена ФИО',
-  //   'Комментарий',
-  // ];
-
+  // Массив названий колонок
   protected columns: any = [
     'archiveNumber',
     'lastName',
@@ -188,6 +179,9 @@ export class HomePageComponent {
     'comment',
   ];
 
+  // Пагинация таблицы
+  private readonly size$ = new BehaviorSubject(10); // По сколько элементов отображать в таблице
+  protected readonly page$ = new BehaviorSubject(0); // Текущая страница в таблице
   protected onPagination({ page, size }: TuiTablePaginationEvent): void {
     this.page$.next(page);
     this.size$.next(size);
@@ -204,6 +198,44 @@ export class HomePageComponent {
         console.log('res', res);
       });
   }
+
+  // Сортировка таблицы
+  protected readonly sorter$ = new BehaviorSubject<Key>('archiveNumber');
+  protected readonly direction$ = new BehaviorSubject<-1 | 1>(-1);
+  protected onSortChange(sorter: Key, direction: 1 | -1) {
+    console.log('Сортировка изменилась:', sorter, direction);
+    // Логика выполнения при изменении сортировки
+  }
+
+  // protected initial: readonly string[] = [
+  //   'Номер в архиве',
+  //   'Фамилия',
+  //   'Имя',
+  //   'Отчество',
+  //   'Менеджер',
+  //   'Находится',
+  //   'CНИЛС',
+
+  //   '1-2',
+  //   '5-6',
+  //   '18-19',
+
+  //   'Титульный',
+  //   'Приложение',
+
+  //   'Заявление',
+  //   'Приложение',
+  //   'Согласие',
+
+  //   'Согласие 1',
+  //   'Согласие 2',
+  //   'Распространение 1',
+  //   'Распространение 2',
+
+  //   'Брак',
+  //   'Смена ФИО',
+  //   'Комментарий',
+  // ];
 
   protected search = '';
   protected minAge = new FormControl(0); // Удалить

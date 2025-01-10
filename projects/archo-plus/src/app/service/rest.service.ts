@@ -67,7 +67,7 @@ export class RestService {
       pagination: this.applicants().pagination,
     });
     return this.applicantsService.getJson(data).pipe(
-      delay(3500),
+      delay(350),
       tap((res) => this.applicants.set(res)),
       catchError((err) => {
         this.applicants.set({
@@ -88,7 +88,7 @@ export class RestService {
       pagination: this.status().pagination,
     });
     return this.statusService.getJson(data).pipe(
-      delay(3000),
+      delay(400),
       tap((res) => this.status.set(res)),
       catchError((err) => {
         this.status.set({

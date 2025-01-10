@@ -7,7 +7,13 @@
 
 .table__container {
   background-color: var(--c-light);
-  width: 100%;
+  max-width: inherit;
+  overflow-x: scroll;
+  margin-bottom: 1rem;
+}
+
+.table__scrollbar {
+  overflow-x: scroll;
 }
 
 th {

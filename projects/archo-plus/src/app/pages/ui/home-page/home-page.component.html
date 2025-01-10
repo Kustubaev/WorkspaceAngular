@@ -19,356 +19,372 @@
 </div>
 
 <tui-loader [overlay]="true" [showLoader]="!!applicants().isLoading">
-  <table
-    *ngIf="applicants()?.data?.length && applicants()?.data as data"
-    tuiTable
-    class="table table__container"
-    [columns]="columns"
-    [direction]="(direction$ | async) || 1"
-    [tuiSortBy]="sorter$ | async"
-    (directionChange)="direction$.next($event)"
-    (tuiSortByChange)="sorter$.next($event!)"
-  >
-    <thead tuiThead>
-      <tr tuiThGroup>
-        <th
-          *tuiHead="'archiveNumber'"
-          rowspan="2"
-          tuiTh
-          tuiSortable
-          [sticky]="true"
-        >
-          Номер в архиве
-        </th>
-        <th *tuiHead="'lastName'" rowspan="2" tuiSortable tuiTh [sticky]="true">
-          Фамилия
-        </th>
-        <th
-          *tuiHead="'firstName'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Имя
-        </th>
-        <th
-          *tuiHead="'middleName'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Отчество
-        </th>
-        <th
-          *tuiHead="'managersId'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Менед-жер
-        </th>
-        <th
-          *tuiHead="'currentLocationsId'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Нахо-дится
-        </th>
-        <th
-          *tuiHead="'isSnils'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          CНИЛС
-        </th>
-
-        <th *tuiHead="'isMain'" colspan="3" tuiTh [sorter]="null">Паспорт</th>
-        <ng-container *tuiHead="'isRegistration'" />
-        <ng-container *tuiHead="'isChangePassport'" />
-
-        <th *tuiHead="'isTitlePage'" colspan="2" tuiTh [sorter]="null">
-          Диплом
-        </th>
-        <ng-container *tuiHead="'isAttachmentPage'" />
-
-        <th *tuiHead="'statementIsFirst'" colspan="3" tuiTh [sorter]="null">
-          Заявление
-        </th>
-        <ng-container *tuiHead="'statementIsSecond'" />
-        <ng-container *tuiHead="'statementIsThird'" />
-
-        <th *tuiHead="'opdIsFirst'" colspan="4" tuiTh [sorter]="null">ОПД</th>
-        <ng-container *tuiHead="'opdIsSecond'" />
-        <ng-container *tuiHead="'opdIsThird'" />
-        <ng-container *tuiHead="'opdIsFourth'" />
-
-        <th
-          *tuiHead="'isMarriage'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Брак
-        </th>
-        <th
-          *tuiHead="'isNameChange'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Смена ФИО
-        </th>
-        <th
-          *tuiHead="'comment'"
-          rowspan="2"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-          [sticky]="true"
-        >
-          Комментарий
-        </th>
-      </tr>
-
-      <tr tuiThGroup>
-        <th *tuiHead="'isMain'" tuiSortable tuiTh [requiredSort]="true">1-2</th>
-        <th *tuiHead="'isRegistration'" tuiSortable tuiTh [requiredSort]="true">
-          5-6
-        </th>
-        <th
-          *tuiHead="'isChangePassport'"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-        >
-          18-19
-        </th>
-
-        <th *tuiHead="'isTitlePage'" tuiSortable tuiTh [requiredSort]="true">
-          Тит
-        </th>
-        <th
-          *tuiHead="'isAttachmentPage'"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-        >
-          Прл
-        </th>
-
-        <th
-          *tuiHead="'statementIsFirst'"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-        >
-          Заяв
-        </th>
-        <th
-          *tuiHead="'statementIsSecond'"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-        >
-          Прл
-        </th>
-        <th
-          *tuiHead="'statementIsThird'"
-          tuiSortable
-          tuiTh
-          [requiredSort]="true"
-        >
-          Согл
-        </th>
-
-        <th *tuiHead="'opdIsFirst'" tuiSortable tuiTh [requiredSort]="true">
-          С1
-        </th>
-        <th *tuiHead="'opdIsSecond'" tuiSortable tuiTh [requiredSort]="true">
-          С2
-        </th>
-        <th *tuiHead="'opdIsThird'" tuiSortable tuiTh [requiredSort]="true">
-          Р1
-        </th>
-        <th *tuiHead="'opdIsFourth'" tuiSortable tuiTh [requiredSort]="true">
-          Р2
-        </th>
-      </tr>
-    </thead>
-
-    <tbody
-      *tuiLet="data | tuiTableSort as sortedData"
-      tuiTbody
-      [data]="sortedData"
+  <tui-scrollbar class="table__scrollbar">
+    <table
+      *ngIf="applicants()?.data?.length && applicants()?.data as data"
+      tuiTable
+      class="table table__container"
+      [columns]="columns"
+      [direction]="(direction$ | async) || 1"
+      [tuiSortBy]="sorter$ | async"
+      (directionChange)="direction$.next($event)"
+      (tuiSortByChange)="sorter$.next($event!)"
     >
-      <tr *ngFor="let item of sortedData" tuiTr>
-        <td *tuiCell="'archiveNumber'" tuiTd>
-          {{ item.archiveNumber }}
-        </td>
-        <td *tuiCell="'lastName'" tuiTd>
-          {{ item.person.lastName }}
-        </td>
-        <td *tuiCell="'firstName'" tuiTd>
-          {{ item.person.firstName }}
-        </td>
-        <td *tuiCell="'middleName'" tuiTd>
-          {{ item.person.middleName }}
-        </td>
-        <td *tuiCell="'managersId'" tuiTd>
-          {{ item.managersId }}
-        </td>
-        <td *tuiCell="'currentLocationsId'" tuiTd>
-          {{ item.currentLocationsId }}
-        </td>
-        <td
-          *tuiCell="'isSnils'"
-          tuiTd
-          class="{{ getStatusColor(item.isSnils) }}"
-        >
-          {{ getStatusText(item.isSnils) }}
-        </td>
+      <thead tuiThead>
+        <tr tuiThGroup>
+          <th
+            *tuiHead="'archiveNumber'"
+            tuiTh
+            rowspan="2"
+            tuiSortable
+            [sticky]="true"
+            [resizable]="true"
+          >
+            Номер в архиве
+          </th>
+          <th
+            *tuiHead="'lastName'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [sticky]="true"
+          >
+            Фамилия
+          </th>
+          <th
+            *tuiHead="'firstName'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Имя
+          </th>
+          <th
+            *tuiHead="'middleName'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Отчество
+          </th>
+          <th
+            *tuiHead="'managersId'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Менед-жер
+          </th>
+          <th
+            *tuiHead="'currentLocationsId'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Нахо-дится
+          </th>
+          <th
+            *tuiHead="'isSnils'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            CНИЛС
+          </th>
 
-        <td
-          *tuiCell="'isMain'"
-          tuiTd
-          class="{{ getStatusColor(item.passport.isMain) }}"
-        >
-          {{ getStatusText(item.passport.isMain) }}
-        </td>
-        <td
-          *tuiCell="'isRegistration'"
-          tuiTd
-          class="{{ getStatusColor(item.passport.isRegistration) }}"
-        >
-          {{ getStatusText(item.passport.isRegistration) }}
-        </td>
-        <td
-          *tuiCell="'isChangePassport'"
-          tuiTd
-          class="{{ getStatusColor(item.passport.isChangePassport) }}"
-        >
-          {{ getStatusText(item.passport.isChangePassport) }}
-        </td>
+          <th *tuiHead="'isMain'" colspan="3" tuiTh [sorter]="null">Паспорт</th>
+          <ng-container *tuiHead="'isRegistration'" />
+          <ng-container *tuiHead="'isChangePassport'" />
 
-        <td
-          *tuiCell="'isTitlePage'"
-          tuiTd
-          class="{{ getStatusColor(item.diploma.isTitlePage) }}"
-        >
-          {{ getStatusText(item.diploma.isTitlePage) }}
-        </td>
-        <td
-          *tuiCell="'isAttachmentPage'"
-          tuiTd
-          class="{{ getStatusColor(item.diploma.isAttachmentPage) }}"
-        >
-          {{ getStatusText(item.diploma.isAttachmentPage) }}
-        </td>
+          <th *tuiHead="'isTitlePage'" colspan="2" tuiTh [sorter]="null">
+            Диплом
+          </th>
+          <ng-container *tuiHead="'isAttachmentPage'" />
 
-        <td
-          *tuiCell="'statementIsFirst'"
-          tuiTd
-          class="{{ getStatusColor(item.statement.isFirst) }}"
-        >
-          {{ getStatusText(item.statement.isFirst) }}
-        </td>
-        <td
-          *tuiCell="'statementIsSecond'"
-          tuiTd
-          class="{{ getStatusColor(item.statement.isSecond) }}"
-        >
-          {{ getStatusText(item.statement.isSecond) }}
-        </td>
-        <td
-          *tuiCell="'statementIsThird'"
-          tuiTd
-          class="{{ getStatusColor(item.statement.isThird) }}"
-        >
-          {{ getStatusText(item.statement.isThird) }}
-        </td>
+          <th *tuiHead="'statementIsFirst'" colspan="3" tuiTh [sorter]="null">
+            Заявление
+          </th>
+          <ng-container *tuiHead="'statementIsSecond'" />
+          <ng-container *tuiHead="'statementIsThird'" />
 
-        <td
-          *tuiCell="'opdIsFirst'"
-          tuiTd
-          class="{{ getStatusColor(item.opd.isFirst) }}"
-        >
-          {{ getStatusText(item.opd.isFirst) }}
-        </td>
-        <td
-          *tuiCell="'opdIsSecond'"
-          tuiTd
-          class="{{ getStatusColor(item.opd.isSecond) }}"
-        >
-          {{ getStatusText(item.opd.isSecond) }}
-        </td>
-        <td
-          *tuiCell="'opdIsThird'"
-          tuiTd
-          class="{{ getStatusColor(item.opd.isThird) }}"
-        >
-          {{ getStatusText(item.opd.isThird) }}
-        </td>
-        <td
-          *tuiCell="'opdIsFourth'"
-          tuiTd
-          class="{{ getStatusColor(item.opd.isFourth) }}"
-        >
-          {{ getStatusText(item.opd.isFourth) }}
-        </td>
+          <th *tuiHead="'opdIsFirst'" colspan="4" tuiTh [sorter]="null">ОПД</th>
+          <ng-container *tuiHead="'opdIsSecond'" />
+          <ng-container *tuiHead="'opdIsThird'" />
+          <ng-container *tuiHead="'opdIsFourth'" />
 
-        <td
-          *tuiCell="'isMarriage'"
-          tuiTd
-          class="{{ getStatusColor(item.isMarriage) }}"
-        >
-          {{ getStatusText(item.isMarriage) }}
-        </td>
-        <td
-          *tuiCell="'isNameChange'"
-          tuiTd
-          class="{{ getStatusColor(item.isNameChange) }}"
-        >
-          {{ getStatusText(item.isNameChange) }}
-        </td>
-        <td *tuiCell="'comment'" tuiTd class="td__comment">
-          <tui-scrollbar class="comment">
-            <div>
-              {{ item.comment }}
-            </div>
-          </tui-scrollbar>
-        </td>
-      </tr>
-    </tbody>
+          <th
+            *tuiHead="'isMarriage'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Брак
+          </th>
+          <th
+            *tuiHead="'isNameChange'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Смена ФИО
+          </th>
+          <th
+            *tuiHead="'comment'"
+            rowspan="2"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+            [sticky]="true"
+          >
+            Комментарий
+          </th>
+        </tr>
 
-    <tfoot>
-      <tr>
-        <td [colSpan]="columns.length">
-          <tui-table-pagination
-            class="tui-space_top-2"
-            [page]="(page$ | async) || 0"
-            [total]="applicants()?.pagination?.items || 0"
-            (paginationChange)="onPagination($event)"
-          />
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+        <tr tuiThGroup>
+          <th *tuiHead="'isMain'" tuiSortable tuiTh [requiredSort]="true">
+            1-2
+          </th>
+          <th
+            *tuiHead="'isRegistration'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            5-6
+          </th>
+          <th
+            *tuiHead="'isChangePassport'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            18-19
+          </th>
+
+          <th *tuiHead="'isTitlePage'" tuiSortable tuiTh [requiredSort]="true">
+            Тит
+          </th>
+          <th
+            *tuiHead="'isAttachmentPage'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Прл
+          </th>
+
+          <th
+            *tuiHead="'statementIsFirst'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Заяв
+          </th>
+          <th
+            *tuiHead="'statementIsSecond'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Прл
+          </th>
+          <th
+            *tuiHead="'statementIsThird'"
+            tuiSortable
+            tuiTh
+            [requiredSort]="true"
+          >
+            Согл
+          </th>
+
+          <th *tuiHead="'opdIsFirst'" tuiSortable tuiTh [requiredSort]="true">
+            С1
+          </th>
+          <th *tuiHead="'opdIsSecond'" tuiSortable tuiTh [requiredSort]="true">
+            С2
+          </th>
+          <th *tuiHead="'opdIsThird'" tuiSortable tuiTh [requiredSort]="true">
+            Р1
+          </th>
+          <th *tuiHead="'opdIsFourth'" tuiSortable tuiTh [requiredSort]="true">
+            Р2
+          </th>
+        </tr>
+      </thead>
+
+      <tbody
+        *tuiLet="data | tuiTableSort as sortedData"
+        tuiTbody
+        [data]="sortedData"
+      >
+        <tr *ngFor="let item of sortedData" tuiTr>
+          <td *tuiCell="'archiveNumber'" tuiTd>
+            {{ item.archiveNumber }}
+          </td>
+          <td *tuiCell="'lastName'" tuiTd>
+            {{ item.person.lastName }}
+          </td>
+          <td *tuiCell="'firstName'" tuiTd>
+            {{ item.person.firstName }}
+          </td>
+          <td *tuiCell="'middleName'" tuiTd>
+            {{ item.person.middleName }}
+          </td>
+          <td *tuiCell="'managersId'" tuiTd>
+            {{ item.managersId }}
+          </td>
+          <td *tuiCell="'currentLocationsId'" tuiTd>
+            {{ item.currentLocationsId }}
+          </td>
+          <td
+            *tuiCell="'isSnils'"
+            tuiTd
+            class="{{ getStatusColor(item.isSnils) }}"
+          >
+            {{ getStatusText(item.isSnils) }}
+          </td>
+
+          <td
+            *tuiCell="'isMain'"
+            tuiTd
+            class="{{ getStatusColor(item.passport.isMain) }}"
+          >
+            {{ getStatusText(item.passport.isMain) }}
+          </td>
+          <td
+            *tuiCell="'isRegistration'"
+            tuiTd
+            class="{{ getStatusColor(item.passport.isRegistration) }}"
+          >
+            {{ getStatusText(item.passport.isRegistration) }}
+          </td>
+          <td
+            *tuiCell="'isChangePassport'"
+            tuiTd
+            class="{{ getStatusColor(item.passport.isChangePassport) }}"
+          >
+            {{ getStatusText(item.passport.isChangePassport) }}
+          </td>
+
+          <td
+            *tuiCell="'isTitlePage'"
+            tuiTd
+            class="{{ getStatusColor(item.diploma.isTitlePage) }}"
+          >
+            {{ getStatusText(item.diploma.isTitlePage) }}
+          </td>
+          <td
+            *tuiCell="'isAttachmentPage'"
+            tuiTd
+            class="{{ getStatusColor(item.diploma.isAttachmentPage) }}"
+          >
+            {{ getStatusText(item.diploma.isAttachmentPage) }}
+          </td>
+
+          <td
+            *tuiCell="'statementIsFirst'"
+            tuiTd
+            class="{{ getStatusColor(item.statement.isFirst) }}"
+          >
+            {{ getStatusText(item.statement.isFirst) }}
+          </td>
+          <td
+            *tuiCell="'statementIsSecond'"
+            tuiTd
+            class="{{ getStatusColor(item.statement.isSecond) }}"
+          >
+            {{ getStatusText(item.statement.isSecond) }}
+          </td>
+          <td
+            *tuiCell="'statementIsThird'"
+            tuiTd
+            class="{{ getStatusColor(item.statement.isThird) }}"
+          >
+            {{ getStatusText(item.statement.isThird) }}
+          </td>
+
+          <td
+            *tuiCell="'opdIsFirst'"
+            tuiTd
+            class="{{ getStatusColor(item.opd.isFirst) }}"
+          >
+            {{ getStatusText(item.opd.isFirst) }}
+          </td>
+          <td
+            *tuiCell="'opdIsSecond'"
+            tuiTd
+            class="{{ getStatusColor(item.opd.isSecond) }}"
+          >
+            {{ getStatusText(item.opd.isSecond) }}
+          </td>
+          <td
+            *tuiCell="'opdIsThird'"
+            tuiTd
+            class="{{ getStatusColor(item.opd.isThird) }}"
+          >
+            {{ getStatusText(item.opd.isThird) }}
+          </td>
+          <td
+            *tuiCell="'opdIsFourth'"
+            tuiTd
+            class="{{ getStatusColor(item.opd.isFourth) }}"
+          >
+            {{ getStatusText(item.opd.isFourth) }}
+          </td>
+
+          <td
+            *tuiCell="'isMarriage'"
+            tuiTd
+            class="{{ getStatusColor(item.isMarriage) }}"
+          >
+            {{ getStatusText(item.isMarriage) }}
+          </td>
+          <td
+            *tuiCell="'isNameChange'"
+            tuiTd
+            class="{{ getStatusColor(item.isNameChange) }}"
+          >
+            {{ getStatusText(item.isNameChange) }}
+          </td>
+          <td *tuiCell="'comment'" tuiTd class="td__comment">
+            <tui-scrollbar class="comment">
+              <div>
+                {{ item.comment }}
+              </div>
+            </tui-scrollbar>
+          </td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td [colSpan]="columns.length">
+            <tui-table-pagination
+              class="tui-space_top-2"
+              [page]="(page$ | async) || 0"
+              [total]="applicants()?.pagination?.items || 0"
+              (paginationChange)="onPagination($event)"
+            />
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </tui-scrollbar>
 </tui-loader>
 
 <!-- <div class="box">
