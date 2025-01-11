@@ -1,0 +1,14 @@
+<div tuiGroup [collapsed]="true" class="radio__box">
+  <div><ng-content /></div>
+  @for (item of params; track $index) {
+  <label tuiBlock>
+    <input
+      [formControlName]="formName"
+      tuiRadio
+      type="radio"
+      [value]="item.value"
+    />
+    {{ item.name }}
+  </label>
+  }
+</div>

@@ -6,6 +6,13 @@
   cursor: pointer;
   transition: color 0.2s ease-in-out;
   &:hover {
-    color: var(--c-while);
+    color: var(--c-black);
   }
+}
+
+.th__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

@@ -1,15 +1,17 @@
 <span class="th-span" #spanElement>
   <ng-content />
-  <tui-icon
-    #tuiIcon
-    class="t-icon"
-    [style]="{
-      '--t-icon':
-        'url(assets/taiga-ui/icons/' +
-        this.directionObject[this.direction] +
-        '.svg)'
-    }"
-  >
-    ></tui-icon
-  >
+  <div class="th__box">
+    <tui-icon
+      #tuiIcon
+      class="t-icon"
+      [style]="{
+        '--t-icon':
+          'url(assets/taiga-ui/icons/' +
+          this.directionObject[this.direction] +
+          '.svg)'
+      }"
+    >
+    </tui-icon>
+    <div *ngIf="sequence > 0">({{ sequence }})</div>
+  </div>
 </span>

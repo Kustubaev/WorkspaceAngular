@@ -9,14 +9,21 @@
 <div>Загрузка...</div>
 } -->
 
-<div tuiTextfieldSize="m" class="filters filter__container">
-  <tui-input class="input" [tuiTextfieldCleaner]="true" [(ngModel)]="search">
-    Find on page
+<form class="form" [formGroup]="searchForm">
+  <tui-input
+    formControlName="search"
+    class="form__input"
+    [tuiTextfieldCleaner]="true"
+    [tuiTextfieldIcon]="'@tui.search'"
+  >
+    Найти дело
+    <input
+      placeholder="Введите номер в архиве (из-за бэка пока так)..."
+      tuiTextfieldLegacy
+      type="text"
+    />
   </tui-input>
-  <tui-input-number [formControl]="minAge" [tuiNumberFormat]="{ precision: 0 }">
-    Minimum age
-  </tui-input-number>
-</div>
+</form>
 
 <tui-loader [overlay]="true" [showLoader]="!!applicants().isLoading">
   <tui-scrollbar class="table__scrollbar">
@@ -28,6 +35,14 @@
     >
       <thead tuiThead>
         <tr tuiThGroup>
+          <th
+            tuiTh
+            rowspan="2"
+            *tuiHead="'open'"
+            [sorter]="null"
+            [sticky]="false"
+            [resizable]="true"
+          ></th>
           @for (item of titleArray().slice(0, 7); track $index) {
           <th
             tuiTh
@@ -38,12 +53,14 @@
             [resizable]="true"
             (click)="onSortChange(item)"
           >
-            <app-th-icon [direction]="item.direction"> {{ item.title }} </app-th-icon>
+            <app-th-icon [direction]="item.direction" [sequence]="item.seq">
+              {{ item.title }}
+            </app-th-icon>
           </th>
           }
 
           <th
-            *tuiHead="'isMain'"
+            *tuiHead="'passport.isMain'"
             colspan="3"
             tuiTh
             [sorter]="null"
@@ -51,11 +68,11 @@
           >
             Паспорт
           </th>
-          <ng-container *tuiHead="'isRegistration'" />
-          <ng-container *tuiHead="'isChangePassport'" />
+          <ng-container *tuiHead="'passport.isRegistration'" />
+          <ng-container *tuiHead="'passport.isChangePassport'" />
 
           <th
-            *tuiHead="'isTitlePage'"
+            *tuiHead="'diploma.isTitlePage'"
             colspan="2"
             tuiTh
             [sorter]="null"
@@ -63,10 +80,10 @@
           >
             Диплом
           </th>
-          <ng-container *tuiHead="'isAttachmentPage'" />
+          <ng-container *tuiHead="'diploma.isAttachmentPage'" />
 
           <th
-            *tuiHead="'statementIsFirst'"
+            *tuiHead="'statement.isFirst'"
             colspan="3"
             tuiTh
             [sorter]="null"
@@ -74,11 +91,11 @@
           >
             Заявление
           </th>
-          <ng-container *tuiHead="'statementIsSecond'" />
-          <ng-container *tuiHead="'statementIsThird'" />
+          <ng-container *tuiHead="'statement.isSecond'" />
+          <ng-container *tuiHead="'statement.isThird'" />
 
           <th
-            *tuiHead="'opdIsFirst'"
+            *tuiHead="'opd.isFirst'"
             colspan="4"
             tuiTh
             [sorter]="null"
@@ -86,9 +103,9 @@
           >
             ОПД
           </th>
-          <ng-container *tuiHead="'opdIsSecond'" />
-          <ng-container *tuiHead="'opdIsThird'" />
-          <ng-container *tuiHead="'opdIsFourth'" />
+          <ng-container *tuiHead="'opd.isSecond'" />
+          <ng-container *tuiHead="'opd.isThird'" />
+          <ng-container *tuiHead="'opd.isFourth'" />
 
           @for (item of titleArray().slice(19, 22); track $index) {
           <th
@@ -100,7 +117,9 @@
             [resizable]="true"
             (click)="onSortChange(item)"
           >
-            <app-th-icon [direction]="item.direction"> {{ item.title }} </app-th-icon>
+            <app-th-icon [direction]="item.direction" [sequence]="item.seq">
+              {{ item.title }}
+            </app-th-icon>
           </th>
           }
         </tr>
@@ -115,7 +134,9 @@
             [resizable]="true"
             (click)="onSortChange(item)"
           >
-            <app-th-icon [direction]="item.direction"> {{ item.title }} </app-th-icon>
+            <app-th-icon [direction]="item.direction" [sequence]="item.seq">
+              {{ item.title }}
+            </app-th-icon>
           </th>
           }
         </tr>
@@ -127,16 +148,30 @@
         [data]="sortedData"
       >
         <tr *ngFor="let item of sortedData" tuiTr>
+          <td *tuiCell="'open'" tuiTd>
+            <span tuiStatus>
+              <button
+                appearance="action"
+                iconStart="@tui.pencil"
+                size="xs"
+                tuiIconButton
+                type="button"
+                (click)="showDialog(item)"
+              >
+                Edit
+              </button>
+            </span>
+          </td>
           <td *tuiCell="'archiveNumber'" tuiTd>
             {{ item.archiveNumber }}
           </td>
-          <td *tuiCell="'lastName'" tuiTd>
+          <td *tuiCell="'person.lastName'" tuiTd>
             {{ item.person.lastName }}
           </td>
-          <td *tuiCell="'firstName'" tuiTd>
+          <td *tuiCell="'person.firstName'" tuiTd>
             {{ item.person.firstName }}
           </td>
-          <td *tuiCell="'middleName'" tuiTd>
+          <td *tuiCell="'person.middleName'" tuiTd>
             {{ item.person.middleName }}
           </td>
           <td *tuiCell="'managersId'" tuiTd>
@@ -154,21 +189,21 @@
           </td>
 
           <td
-            *tuiCell="'isMain'"
+            *tuiCell="'passport.isMain'"
             tuiTd
             class="{{ getStatusColor(item.passport.isMain) }}"
           >
             {{ getStatusText(item.passport.isMain) }}
           </td>
           <td
-            *tuiCell="'isRegistration'"
+            *tuiCell="'passport.isRegistration'"
             tuiTd
             class="{{ getStatusColor(item.passport.isRegistration) }}"
           >
             {{ getStatusText(item.passport.isRegistration) }}
           </td>
           <td
-            *tuiCell="'isChangePassport'"
+            *tuiCell="'passport.isChangePassport'"
             tuiTd
             class="{{ getStatusColor(item.passport.isChangePassport) }}"
           >
@@ -176,14 +211,14 @@
           </td>
 
           <td
-            *tuiCell="'isTitlePage'"
+            *tuiCell="'diploma.isTitlePage'"
             tuiTd
             class="{{ getStatusColor(item.diploma.isTitlePage) }}"
           >
             {{ getStatusText(item.diploma.isTitlePage) }}
           </td>
           <td
-            *tuiCell="'isAttachmentPage'"
+            *tuiCell="'diploma.isAttachmentPage'"
             tuiTd
             class="{{ getStatusColor(item.diploma.isAttachmentPage) }}"
           >
@@ -191,21 +226,21 @@
           </td>
 
           <td
-            *tuiCell="'statementIsFirst'"
+            *tuiCell="'statement.isFirst'"
             tuiTd
             class="{{ getStatusColor(item.statement.isFirst) }}"
           >
             {{ getStatusText(item.statement.isFirst) }}
           </td>
           <td
-            *tuiCell="'statementIsSecond'"
+            *tuiCell="'statement.isSecond'"
             tuiTd
             class="{{ getStatusColor(item.statement.isSecond) }}"
           >
             {{ getStatusText(item.statement.isSecond) }}
           </td>
           <td
-            *tuiCell="'statementIsThird'"
+            *tuiCell="'statement.isThird'"
             tuiTd
             class="{{ getStatusColor(item.statement.isThird) }}"
           >
@@ -213,28 +248,28 @@
           </td>
 
           <td
-            *tuiCell="'opdIsFirst'"
+            *tuiCell="'opd.isFirst'"
             tuiTd
             class="{{ getStatusColor(item.opd.isFirst) }}"
           >
             {{ getStatusText(item.opd.isFirst) }}
           </td>
           <td
-            *tuiCell="'opdIsSecond'"
+            *tuiCell="'opd.isSecond'"
             tuiTd
             class="{{ getStatusColor(item.opd.isSecond) }}"
           >
             {{ getStatusText(item.opd.isSecond) }}
           </td>
           <td
-            *tuiCell="'opdIsThird'"
+            *tuiCell="'opd.isThird'"
             tuiTd
             class="{{ getStatusColor(item.opd.isThird) }}"
           >
             {{ getStatusText(item.opd.isThird) }}
           </td>
           <td
-            *tuiCell="'opdIsFourth'"
+            *tuiCell="'opd.isFourth'"
             tuiTd
             class="{{ getStatusColor(item.opd.isFourth) }}"
           >
@@ -280,8 +315,6 @@
     </table>
   </tui-scrollbar>
 </tui-loader>
-
-<button type="button" (click)="reload()">Нажми на меня</button>
 
 <!-- <div class="box">
   @for (status of status(); track status.id) {

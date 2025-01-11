@@ -20,11 +20,19 @@ export class JsonService<T> {
     }
 
     if (data?.conditions) {
-      params.push(
-        `${data?.conditions?.name}${
-          enumConditions[data?.conditions?.comparison]
-        }=${data?.conditions?.value}`
-      );
+      const conditionsArray = Array.isArray(data.conditions)
+        ? data.conditions
+        : [data.conditions];
+      conditionsArray.forEach((c) => {
+        const { name, comparison, value } = c;
+
+        if (
+          value != null &&
+          !(typeof value === 'string' && value.trim().length === 0)
+        ) {
+          params.push(`${name}${enumConditions[comparison]}=${value}`);
+        }
+      });
     }
 
     if (data?.range) {
@@ -117,11 +125,18 @@ type Range =
 export interface getInterface {
   id?: string | number;
   embed?: string; //Соединяет таблицы, добавляет в левый объект правый объект как массив объектов. Связь будет только в том случае, если в одном из объектов есть ссылка на другой объект по типу "leftId".
-  conditions?: {
-    name: string; //Для вложенных условий => 'a.b.c', для массивов => 'a[0].b'!
-    comparison: '==' | '<' | '<=' | '>' | '>=' | '!=';
-    value: number | string;
-  } | null;
+  conditions?:
+    | {
+        name: string; //Для вложенных условий => 'a.b.c', для массивов => 'a[0].b'!
+        comparison: '==' | '<' | '<=' | '>' | '>=' | '!=';
+        value: number | string | null;
+      }
+    | {
+        name: string; //Для вложенных условий => 'a.b.c', для массивов => 'a[0].b'!
+        comparison: '==' | '<' | '<=' | '>' | '>=' | '!=';
+        value: number | string | null;
+      }[]
+    | null;
   range?: Range | null;
   pagination?: {
     page: number;

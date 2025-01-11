@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import type { TuiTablePaginationEvent } from '@taiga-ui/addon-table';
 import {
   TuiReorder,
@@ -11,6 +11,7 @@ import {
 import { TuiLet } from '@taiga-ui/cdk';
 import {
   TuiButton,
+  tuiDialog,
   TuiDropdown,
   TuiIcon,
   TuiLabel,
@@ -25,9 +26,12 @@ import {
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
 
-import { BehaviorSubject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, debounceTime, startWith, tap } from 'rxjs';
+import { Applicant } from '../../../models/applicant.model';
 import { RestService } from '../../../service/rest.service';
 import { ThIconComponent } from '../../../shared/ui/th-icon/th-icon.component';
+import { ApplicationComponent } from '../../../widgets/ui/application/application.component';
 
 // type Key =
 //   | 'archiveNumber'
@@ -120,10 +124,6 @@ export class HomePageComponent {
   protected readonly locations = this.restService.locations;
   protected readonly managers = this.restService.managers;
 
-  protected directionArrow = 0;
-
-  protected stringSort: string = '';
-
   ngOnInit() {
     this.onReloadData();
   }
@@ -137,6 +137,13 @@ export class HomePageComponent {
             count: this.size$.value,
           },
           sort: this.sorter$.value,
+          conditions: [
+            {
+              name: 'archiveNumber',
+              comparison: '==',
+              value: this.searchForm.value.search as string,
+            },
+          ],
           // id: 2,
           // embed: 'locations',
           // conditions: {
@@ -171,54 +178,60 @@ export class HomePageComponent {
 
   protected titleArray = signal<titleArray[]>([
     { target: 'archiveNumber', title: 'Номер в архиве', direction: 0, seq: 0 }, // 1
-    { target: 'lastName', title: 'Фамилия', direction: 0, seq: 0 }, // 2
-    { target: 'firstName', title: 'Имя', direction: 0, seq: 0 }, // 3
-    { target: 'middleName', title: 'Отчество', direction: 0, seq: 0 }, // 4
+    { target: 'person.lastName', title: 'Фамилия', direction: 0, seq: 0 }, // 2
+    { target: 'person.firstName', title: 'Имя', direction: 0, seq: 0 }, // 3
+    { target: 'person.middleName', title: 'Отчество', direction: 0, seq: 0 }, // 4
     { target: 'managersId', title: 'Менеджер', direction: 0, seq: 0 }, // 5
     { target: 'currentLocationsId', title: 'Находится', direction: 0, seq: 0 }, // 6
     { target: 'isSnils', title: 'CНИЛС', direction: 0, seq: 0 }, // 7
-    { target: 'isMain', title: '1-2', direction: 0, seq: 0 }, // 8
-    { target: 'isRegistration', title: '5-6', direction: 0, seq: 0 }, // 9
-    { target: 'isChangePassport', title: '18-19', direction: 0, seq: 0 }, // 10
-    { target: 'isTitlePage', title: 'Тит', direction: 0, seq: 0 }, // 11
-    { target: 'isAttachmentPage', title: 'Прл', direction: 0, seq: 0 }, // 12
-    { target: 'statementIsFirst', title: 'Заяв', direction: 0, seq: 0 }, // 13
-    { target: 'statementIsSecond', title: 'Прл', direction: 0, seq: 0 }, // 14
-    { target: 'statementIsThird', title: 'Согл', direction: 0, seq: 0 }, // 15
-    { target: 'opdIsFirst', title: 'С1', direction: 0, seq: 0 }, // 16
-    { target: 'opdIsSecond', title: 'С2', direction: 0, seq: 0 }, // 17
-    { target: 'opdIsThird', title: 'П1', direction: 0, seq: 0 }, // 18
-    { target: 'opdIsFourth', title: 'П2', direction: 0, seq: 0 }, // 19
+    { target: 'passport.isMain', title: '1-2', direction: 0, seq: 0 }, // 8
+    { target: 'passport.isRegistration', title: '5-6', direction: 0, seq: 0 }, // 9
+    {
+      target: 'passport.isChangePassport',
+      title: '18-19',
+      direction: 0,
+      seq: 0,
+    }, // 10
+    { target: 'diploma.isTitlePage', title: 'Тит', direction: 0, seq: 0 }, // 11
+    { target: 'diploma.isAttachmentPage', title: 'Прл', direction: 0, seq: 0 }, // 12
+    { target: 'statement.isFirst', title: 'Заяв', direction: 0, seq: 0 }, // 13
+    { target: 'statement.isSecond', title: 'Прл', direction: 0, seq: 0 }, // 14
+    { target: 'statement.isThird', title: 'Согл', direction: 0, seq: 0 }, // 15
+    { target: 'opd.isFirst', title: 'С1', direction: 0, seq: 0 }, // 16
+    { target: 'opd.isSecond', title: 'С2', direction: 0, seq: 0 }, // 17
+    { target: 'opd.isThird', title: 'П1', direction: 0, seq: 0 }, // 18
+    { target: 'opd.isFourth', title: 'П2', direction: 0, seq: 0 }, // 19
     { target: 'isMarriage', title: 'Брак', direction: 0, seq: 0 }, // 20
     { target: 'isNameChange', title: 'Смена ФИО', direction: 0, seq: 0 }, // 21
     { target: 'comment', title: 'Комментарий', direction: 0, seq: 0 }, // 22
   ]);
 
   // Массив названий колонок
-  protected columns: any = [
+  protected columns: string[] = [
+    'open',
     'archiveNumber',
-    'lastName',
-    'firstName',
-    'middleName',
+    'person.lastName',
+    'person.firstName',
+    'person.middleName',
     'managersId',
     'currentLocationsId',
     'isSnils',
 
-    'isMain',
-    'isRegistration',
-    'isChangePassport',
+    'passport.isMain',
+    'passport.isRegistration',
+    'passport.isChangePassport',
 
-    'isTitlePage',
-    'isAttachmentPage',
+    'diploma.isTitlePage',
+    'diploma.isAttachmentPage',
 
-    'statementIsFirst',
-    'statementIsSecond',
-    'statementIsThird',
+    'statement.isFirst',
+    'statement.isSecond',
+    'statement.isThird',
 
-    'opdIsFirst',
-    'opdIsSecond',
-    'opdIsThird',
-    'opdIsFourth',
+    'opd.isFirst',
+    'opd.isSecond',
+    'opd.isThird',
+    'opd.isFourth',
 
     'isMarriage',
     'isNameChange',
@@ -282,41 +295,37 @@ export class HomePageComponent {
     this.onReloadData();
   }
 
-  // protected initial: readonly string[] = [
-  //   'Номер в архиве',
-  //   'Фамилия',
-  //   'Имя',
-  //   'Отчество',
-  //   'Менеджер',
-  //   'Находится',
-  //   'CНИЛС',
+  // Поиск
+  constructor() {
+    this.searchForm.valueChanges
+      .pipe(
+        startWith({}),
+        debounceTime(500),
+        tap(() => this.onReloadData()),
+        takeUntilDestroyed()
+      )
+      .subscribe();
+  }
+  private readonly fb = inject(FormBuilder);
+  protected searchForm = this.fb.group({
+    search: [''],
+  });
 
-  //   '1-2',
-  //   '5-6',
-  //   '18-19',
+  private readonly dialog = tuiDialog(ApplicationComponent, {
+    dismissible: true,
+    label: 'Информация о деле',
+    size: 'l',
+  });
 
-  //   'Титульный',
-  //   'Приложение',
-
-  //   'Заявление',
-  //   'Приложение',
-  //   'Согласие',
-
-  //   'Согласие 1',
-  //   'Согласие 2',
-  //   'Распространение 1',
-  //   'Распространение 2',
-
-  //   'Брак',
-  //   'Смена ФИО',
-  //   'Комментарий',
-  // ];
-
-  protected search = '';
-  protected minAge = new FormControl(0); // Удалить
-
-  protected reload() {
-    // this.ngAfterViewInit();
+  protected showDialog(object: Applicant): void {
+    this.dialog(object).subscribe({
+      next: (data) => {
+        console.info(`Dialog emitted data = ${data}`);
+      },
+      complete: () => {
+        console.info('Dialog closed');
+      },
+    });
   }
 }
 
@@ -326,3 +335,33 @@ interface titleArray {
   direction: number;
   seq: number;
 }
+
+// protected initial: readonly string[] = [
+//   'Номер в архиве',
+//   'Фамилия',
+//   'Имя',
+//   'Отчество',
+//   'Менеджер',
+//   'Находится',
+//   'CНИЛС',
+
+//   '1-2',
+//   '5-6',
+//   '18-19',
+
+//   'Титульный',
+//   'Приложение',
+
+//   'Заявление',
+//   'Приложение',
+//   'Согласие',
+
+//   'Согласие 1',
+//   'Согласие 2',
+//   'Распространение 1',
+//   'Распространение 2',
+
+//   'Брак',
+//   'Смена ФИО',
+//   'Комментарий',
+// ];

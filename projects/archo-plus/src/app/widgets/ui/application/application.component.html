@@ -1,0 +1,95 @@
+<h2>
+  Дело <b>{{ data.archiveNumber }}</b> находится на стеллаже
+  <b>{{ locInArc.rack }}</b
+  >, в коробке <b>{{ locInArc.box }}</b
+  >. Уровень образования <b>{{ locInArc.formEducation.text }}</b
+  >.
+</h2>
+
+<form class="form" [formGroup]="form">
+  <tui-input formControlName="fio" class="form__input" [tuiTextfieldSize]="'l'">
+    ФИО
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+  <tui-input
+    formControlName="archiveNumber"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+  >
+    Номер в архиве
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+  <tui-input
+    formControlName="managersId"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+  >
+    Менеджер
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+  <tui-input
+    formControlName="currentLocationsId"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+  >
+    Находится
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+
+  <tui-input
+    formControlName="currentLocationsId"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+    [tuiTextfieldCleaner]="true"
+  >
+    Находится
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+
+  <tui-input
+    formControlName="isSnils"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+    [tuiTextfieldCleaner]="true"
+  >
+    Снилс
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+  <tui-input
+    formControlName="currentLocationsId"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+    [tuiTextfieldCleaner]="true"
+  >
+    Находится
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+
+  <app-radio formName="isSnils" [params]="radioParams">СНИЛС</app-radio>
+
+  <tui-input
+    formControlName="currentLocationsId"
+    class="form__input"
+    [tuiTextfieldSize]="'l'"
+    [tuiTextfieldCleaner]="true"
+  >
+    Находится
+    <input tuiTextfieldLegacy type="text" />
+  </tui-input>
+</form>
+
+<button size="m" tuiButton type="button" [disabled]="true" (click)="submit()">
+  Submit
+</button>
+
+<p>
+  <button size="m" tuiButton type="button" (click)="showDialog(template)">
+    Show one more dialog
+  </button>
+</p>
+
+<ng-template #template>
+  <div class="dialog">
+    <p>This one is a template dialog</p>
+  </div>
+</ng-template>
