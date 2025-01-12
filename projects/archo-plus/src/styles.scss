@@ -188,3 +188,11 @@ td.orange {
 .t-icon {
   border-width: 0.25rem;
 }
+
+.radio__label[tuiBlock] {
+  min-block-size: 0;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

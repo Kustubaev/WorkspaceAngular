@@ -1,4 +1,4 @@
-<h2>
+<h2 class="title">
   Дело <b>{{ data.archiveNumber }}</b> находится на стеллаже
   <b>{{ locInArc.rack }}</b
   >, в коробке <b>{{ locInArc.box }}</b
@@ -7,89 +7,147 @@
 </h2>
 
 <form class="form" [formGroup]="form">
-  <tui-input formControlName="fio" class="form__input" [tuiTextfieldSize]="'l'">
-    ФИО
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
-  <tui-input
-    formControlName="archiveNumber"
-    class="form__input"
-    [tuiTextfieldSize]="'l'"
-  >
-    Номер в архиве
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
-  <tui-input
-    formControlName="managersId"
-    class="form__input"
-    [tuiTextfieldSize]="'l'"
-  >
-    Менеджер
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
-  <tui-input
-    formControlName="currentLocationsId"
-    class="form__input"
-    [tuiTextfieldSize]="'l'"
-  >
-    Находится
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
+  <h3 class="subtitle">Общая информация о деле</h3>
+  <div class="box box__four">
+    <tui-input
+      formControlName="fio"
+      class="form__input"
+      [tuiTextfieldSize]="'l'"
+    >
+      ФИО
+      <input tuiTextfieldLegacy type="text" />
+    </tui-input>
+    <tui-input
+      formControlName="archiveNumber"
+      class="form__input"
+      [tuiTextfieldSize]="'l'"
+    >
+      Номер в архиве
+      <input tuiTextfieldLegacy type="text" />
+    </tui-input>
+    <tui-input
+      formControlName="managersId"
+      class="form__input"
+      [tuiTextfieldSize]="'l'"
+    >
+      Менеджер
+      <input tuiTextfieldLegacy type="text" />
+    </tui-input>
+    <tui-input
+      formControlName="currentLocationsId"
+      class="form__input"
+      [tuiTextfieldSize]="'l'"
+    >
+      Находится
+      <input tuiTextfieldLegacy type="text" />
+    </tui-input>
+  </div>
 
-  <tui-input
-    formControlName="currentLocationsId"
-    class="form__input"
-    [tuiTextfieldSize]="'l'"
-    [tuiTextfieldCleaner]="true"
-  >
-    Находится
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
+  <h3 class="subtitle">ОПД</h3>
+  <div class="box box__four">
+    <app-radio formName="opd.isFirst" [params]="radioParams.slice(0, 2)"
+      >Согласие 1</app-radio
+    >
+    <app-radio formName="opd.isSecond" [params]="radioParams.slice(0, 2)"
+      >Согласие 2</app-radio
+    >
+    <app-radio formName="opd.isThird" [params]="radioParams.slice(0, 2)"
+      >Приложение 1</app-radio
+    >
+    <app-radio formName="opd.isFourth" [params]="radioParams.slice(0, 2)"
+      >Приложение 2</app-radio
+    >
+  </div>
 
-  <tui-input
-    formControlName="isSnils"
-    class="form__input"
-    [tuiTextfieldSize]="'l'"
-    [tuiTextfieldCleaner]="true"
-  >
-    Снилс
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
-  <tui-input
-    formControlName="currentLocationsId"
-    class="form__input"
-    [tuiTextfieldSize]="'l'"
-    [tuiTextfieldCleaner]="true"
-  >
-    Находится
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
+  <h3 class="subtitle">Заявление</h3>
+  <div class="box box__three">
+    <app-radio formName="statement.isFirst" [params]="radioParams.slice(0, 2)"
+      >Заявление</app-radio
+    >
 
-  <app-radio formName="isSnils" [params]="radioParams">СНИЛС</app-radio>
+    <app-radio formName="statement.isSecond" [params]="radioParams.slice(0, 2)"
+      >Приложение</app-radio
+    >
 
-  <tui-input
-    formControlName="currentLocationsId"
-    class="form__input"
+    <app-radio formName="statement.isThird" [params]="radioParams.slice(0, 2)"
+      >Согласие</app-radio
+    >
+  </div>
+
+  <h3 class="subtitle">Паспорт</h3>
+  <div class="box box__three">
+    <app-radio formName="passport.isMain" [params]="radioParams.slice(0, 2)"
+      >1-2</app-radio
+    >
+    <app-radio
+      formName="passport.isRegistration"
+      [params]="radioParams.slice(0, 2)"
+      >5-6</app-radio
+    >
+    <app-radio
+      formName="passport.isChangePassport"
+      [params]="radioParams.slice(0, 3)"
+      >18-19</app-radio
+    >
+  </div>
+
+  <h3 class="subtitle">Диплом</h3>
+  <div class="box box__two">
+    <app-radio formName="diploma.isTitlePage" [params]="radioParams.slice(0, 2)"
+      >Титульный лист</app-radio
+    >
+    <app-radio
+      formName="diploma.isAttachmentPage"
+      [params]="radioParams.slice(0, 2)"
+      >Лист приложения</app-radio
+    >
+  </div>
+
+  <h3 class="subtitle">Остальное</h3>
+  <div class="box box__three">
+    <app-radio
+      formName="isSnils"
+      [params]="radioParams.slice(0, 2).concat(radioParams.slice(3, 4))"
+      >СНИЛС</app-radio
+    >
+    <app-radio formName="isMarriage" [params]="radioParams">Брак</app-radio>
+    <app-radio formName="isNameChange" [params]="radioParams"
+      >Смена ФИО</app-radio
+    >
+  </div>
+
+  <h3 class="subtitle">Комментарий</h3>
+
+  <tui-textarea
+    formControlName="comment"
+    [expandable]="true"
     [tuiTextfieldSize]="'l'"
-    [tuiTextfieldCleaner]="true"
+    class="form__textarea"
   >
-    Находится
-    <input tuiTextfieldLegacy type="text" />
-  </tui-input>
+    Важные примечания
+  </tui-textarea>
 </form>
 
-<button size="m" tuiButton type="button" [disabled]="true" (click)="submit()">
-  Submit
-</button>
-
-<p>
-  <button size="m" tuiButton type="button" (click)="showDialog(template)">
-    Show one more dialog
+<div class="button__container">
+  <button
+    size="m"
+    tuiButton
+    type="button"
+    [disabled]="isEdit()"
+    (click)="submit()"
+  >
+    Сохранить
   </button>
-</p>
 
-<ng-template #template>
-  <div class="dialog">
-    <p>This one is a template dialog</p>
-  </div>
-</ng-template>
+  <button size="m" tuiButton type="button" (click)="edit()">
+    Редактировать
+  </button>
+
+  <button size="m" tuiButton type="button" (click)="cancel()">
+    Выйти
+  </button>
+
+  <!-- <button size="m" tuiButton type="button" (click)="showDialog(template)">
+    Выйти
+  </button> -->
+</div>

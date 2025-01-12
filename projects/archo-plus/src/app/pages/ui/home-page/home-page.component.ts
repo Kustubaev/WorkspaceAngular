@@ -314,12 +314,12 @@ export class HomePageComponent {
   private readonly dialog = tuiDialog(ApplicationComponent, {
     dismissible: true,
     label: 'Информация о деле',
-    size: 'l',
+    size: 'auto',
   });
 
   protected showDialog(object: Applicant): void {
     this.dialog(object).subscribe({
-      next: (data) => {
+      next: (data: Applicant | boolean) => {
         console.info(`Dialog emitted data = ${data}`);
       },
       complete: () => {
