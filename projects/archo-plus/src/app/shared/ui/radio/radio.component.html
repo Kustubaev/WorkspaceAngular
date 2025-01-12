@@ -1,17 +1,35 @@
 <form *ngIf="formGroup" [formGroup]="formGroup">
   <div class="title"><ng-content /></div>
-  <div tuiGroup [collapsed]="true" class="radio__box">
-    @for (item of params; track $index) {
-    <label tuiBlock class="radio__label">
+  <div
+    *ngIf="formGName; else noGroup"
+    tuiGroup
+    [collapsed]="true"
+    class="radio__box"
+    [formGroupName]="formGName"
+  >
+    <label *ngFor="let item of params" tuiBlock class="radio__label">
       <input
         tuiRadio
         type="radio"
         size="s"
         [value]="item.value"
-        [formControlName]="formName"
+        [formControlName]="formCName"
       />
       {{ item.name }}
     </label>
-    }
   </div>
+  <ng-template #noGroup>
+    <div tuiGroup [collapsed]="true" class="radio__box">
+      <label *ngFor="let item of params" tuiBlock class="radio__label">
+        <input
+          tuiRadio
+          type="radio"
+          size="s"
+          [value]="item.value"
+          [formControlName]="formCName"
+        />
+        {{ item.name }}
+      </label>
+    </div>
+  </ng-template>
 </form>

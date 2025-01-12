@@ -45,47 +45,73 @@
 
   <h3 class="subtitle">ОПД</h3>
   <div class="box box__four">
-    <app-radio formName="opd.isFirst" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="opd"
+      formCName="isFirst"
+      [params]="radioParams.slice(0, 2)"
       >Согласие 1</app-radio
     >
-    <app-radio formName="opd.isSecond" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="opd"
+      formCName="isSecond"
+      [params]="radioParams.slice(0, 2)"
       >Согласие 2</app-radio
     >
-    <app-radio formName="opd.isThird" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="opd"
+      formCName="isThird"
+      [params]="radioParams.slice(0, 2)"
       >Приложение 1</app-radio
     >
-    <app-radio formName="opd.isFourth" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="opd"
+      formCName="isFourth"
+      [params]="radioParams.slice(0, 2)"
       >Приложение 2</app-radio
     >
   </div>
 
   <h3 class="subtitle">Заявление</h3>
   <div class="box box__three">
-    <app-radio formName="statement.isFirst" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="statement"
+      formCName="isFirst"
+      [params]="radioParams.slice(0, 2)"
       >Заявление</app-radio
     >
 
-    <app-radio formName="statement.isSecond" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="statement"
+      formCName="isSecond"
+      [params]="radioParams.slice(0, 2)"
       >Приложение</app-radio
     >
 
-    <app-radio formName="statement.isThird" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="statement"
+      formCName="isThird"
+      [params]="radioParams.slice(0, 2)"
       >Согласие</app-radio
     >
   </div>
 
   <h3 class="subtitle">Паспорт</h3>
   <div class="box box__three">
-    <app-radio formName="passport.isMain" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="passport"
+      formCName="isMain"
+      [params]="radioParams.slice(0, 2)"
       >1-2</app-radio
     >
     <app-radio
-      formName="passport.isRegistration"
+      formGName="passport"
+      formCName="isRegistration"
       [params]="radioParams.slice(0, 2)"
       >5-6</app-radio
     >
     <app-radio
-      formName="passport.isChangePassport"
+      formGName="passport"
+      formCName="isChangePassport"
       [params]="radioParams.slice(0, 3)"
       >18-19</app-radio
     >
@@ -93,11 +119,15 @@
 
   <h3 class="subtitle">Диплом</h3>
   <div class="box box__two">
-    <app-radio formName="diploma.isTitlePage" [params]="radioParams.slice(0, 2)"
+    <app-radio
+      formGName="diploma"
+      formCName="isTitlePage"
+      [params]="radioParams.slice(0, 2)"
       >Титульный лист</app-radio
     >
     <app-radio
-      formName="diploma.isAttachmentPage"
+      formGName="diploma"
+      formCName="isAttachmentPage"
       [params]="radioParams.slice(0, 2)"
       >Лист приложения</app-radio
     >
@@ -106,12 +136,12 @@
   <h3 class="subtitle">Остальное</h3>
   <div class="box box__three">
     <app-radio
-      formName="isSnils"
+      formCName="isSnils"
       [params]="radioParams.slice(0, 2).concat(radioParams.slice(3, 4))"
       >СНИЛС</app-radio
     >
-    <app-radio formName="isMarriage" [params]="radioParams">Брак</app-radio>
-    <app-radio formName="isNameChange" [params]="radioParams"
+    <app-radio formCName="isMarriage" [params]="radioParams">Брак</app-radio>
+    <app-radio formCName="isNameChange" [params]="radioParams"
       >Смена ФИО</app-radio
     >
   </div>
@@ -143,9 +173,7 @@
     Редактировать
   </button>
 
-  <button size="m" tuiButton type="button" (click)="cancel()">
-    Выйти
-  </button>
+  <button size="m" tuiButton type="button" (click)="cancel()">Выйти</button>
 
   <!-- <button size="m" tuiButton type="button" (click)="showDialog(template)">
     Выйти

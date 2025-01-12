@@ -76,43 +76,46 @@ export class ApplicationComponent {
     currentLocationsId: [
       { value: this.data.currentLocationsId, disabled: true },
     ],
+
     isSnils: [{ value: this.data.isSnils, disabled: this.isEdit() }],
 
-    'passport.isMain': [
-      { value: this.data.passport.isMain, disabled: this.isEdit() },
-    ],
-    'passport.isRegistration': [
-      { value: this.data.passport.isRegistration, disabled: this.isEdit() },
-    ],
-    'passport.isChangePassport': [
-      { value: this.data.passport.isChangePassport, disabled: this.isEdit() },
-    ],
+    passport: this.fb.group({
+      isMain: [{ value: this.data.passport.isMain, disabled: this.isEdit() }],
+      isRegistration: [
+        { value: this.data.passport.isRegistration, disabled: this.isEdit() },
+      ],
+      isChangePassport: [
+        { value: this.data.passport.isChangePassport, disabled: this.isEdit() },
+      ],
+    }),
 
-    'diploma.isTitlePage': [
-      { value: this.data.diploma.isTitlePage, disabled: this.isEdit() },
-    ],
-    'diploma.isAttachmentPage': [
-      { value: this.data.diploma.isAttachmentPage, disabled: this.isEdit() },
-    ],
+    diploma: this.fb.group({
+      isTitlePage: [
+        { value: this.data.diploma.isTitlePage, disabled: this.isEdit() },
+      ],
+      isAttachmentPage: [
+        { value: this.data.diploma.isAttachmentPage, disabled: this.isEdit() },
+      ],
+    }),
 
-    'statement.isFirst': [
-      { value: this.data.statement.isFirst, disabled: this.isEdit() },
-    ],
-    'statement.isSecond': [
-      { value: this.data.statement.isSecond, disabled: this.isEdit() },
-    ],
-    'statement.isThird': [
-      { value: this.data.statement.isThird, disabled: this.isEdit() },
-    ],
+    statement: this.fb.group({
+      isFirst: [
+        { value: this.data.statement.isFirst, disabled: this.isEdit() },
+      ],
+      isSecond: [
+        { value: this.data.statement.isSecond, disabled: this.isEdit() },
+      ],
+      isThird: [
+        { value: this.data.statement.isThird, disabled: this.isEdit() },
+      ],
+    }),
 
-    'opd.isFirst': [{ value: this.data.opd.isFirst, disabled: this.isEdit() }],
-    'opd.isSecond': [
-      { value: this.data.opd.isSecond, disabled: this.isEdit() },
-    ],
-    'opd.isThird': [{ value: this.data.opd.isThird, disabled: this.isEdit() }],
-    'opd.isFourth': [
-      { value: this.data.opd.isFourth, disabled: this.isEdit() },
-    ],
+    opd: this.fb.group({
+      isFirst: [{ value: this.data.opd.isFirst, disabled: this.isEdit() }],
+      isSecond: [{ value: this.data.opd.isSecond, disabled: this.isEdit() }],
+      isThird: [{ value: this.data.opd.isThird, disabled: this.isEdit() }],
+      isFourth: [{ value: this.data.opd.isFourth, disabled: this.isEdit() }],
+    }),
 
     isMarriage: [{ value: this.data.isMarriage, disabled: this.isEdit() }],
     isNameChange: [{ value: this.data.isNameChange, disabled: this.isEdit() }],
@@ -122,6 +125,7 @@ export class ApplicationComponent {
 
   ngOnInit() {
     console.log('iSsnils work', this.form);
+    console.log('pasport', this.form.value);
   }
 
   protected edit() {
@@ -148,7 +152,15 @@ export class ApplicationComponent {
   }
 
   protected submit(): void {
-    // this.context.completeWith({ name: this.name, value: this.value });
+    const {
+      fio,
+      archiveNumber,
+      managersId,
+      currentLocationsId,
+      ...resultObject
+    } = this.form.value;
+
+    // this.context.completeWith(resultObject);
   }
 
   protected radioParams: radioParamsInterface[] = [

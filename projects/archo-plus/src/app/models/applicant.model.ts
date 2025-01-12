@@ -40,7 +40,6 @@ export interface Applicant {
   };
 }
 
-
 export interface Status {
   id: string;
   text: string;

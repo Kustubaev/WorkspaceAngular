@@ -16,7 +16,8 @@ import { TuiBlock, TuiRadio } from '@taiga-ui/kit';
   styleUrl: './radio.component.scss',
 })
 export class RadioComponent {
-  @Input() formName!: string;
+  @Input() formCName!: string;
+  @Input() formGName: string | null = null;
   @Input() params: radioParamsInterface[] = [];
 
   protected formGroup!: FormGroup;
