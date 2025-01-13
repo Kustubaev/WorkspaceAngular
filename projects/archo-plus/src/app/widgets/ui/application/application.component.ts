@@ -1,6 +1,11 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
 import { TuiAutoFocus } from '@taiga-ui/cdk';
 import type { TuiDialogContext } from '@taiga-ui/core';
@@ -77,36 +82,46 @@ export class ApplicationComponent {
       { value: this.data.currentLocationsId, disabled: true },
     ],
 
-    isSnils: [{ value: this.data.isSnils, disabled: this.isEdit() }],
+    isSnils: [{ value: '', disabled: this.isEdit() }, Validators.required],
 
     passport: this.fb.group({
-      isMain: [{ value: this.data.passport.isMain, disabled: this.isEdit() }],
+      isMain: [
+        { value: this.data.passport.isMain, disabled: this.isEdit() },
+        Validators.required,
+      ],
       isRegistration: [
         { value: this.data.passport.isRegistration, disabled: this.isEdit() },
+        Validators.required,
       ],
       isChangePassport: [
         { value: this.data.passport.isChangePassport, disabled: this.isEdit() },
+        Validators.required,
       ],
     }),
 
     diploma: this.fb.group({
       isTitlePage: [
         { value: this.data.diploma.isTitlePage, disabled: this.isEdit() },
+        Validators.required,
       ],
       isAttachmentPage: [
         { value: this.data.diploma.isAttachmentPage, disabled: this.isEdit() },
+        Validators.required,
       ],
     }),
 
     statement: this.fb.group({
       isFirst: [
         { value: this.data.statement.isFirst, disabled: this.isEdit() },
+        Validators.required,
       ],
       isSecond: [
         { value: this.data.statement.isSecond, disabled: this.isEdit() },
+        Validators.required,
       ],
       isThird: [
         { value: this.data.statement.isThird, disabled: this.isEdit() },
+        Validators.required,
       ],
     }),
 
@@ -152,15 +167,23 @@ export class ApplicationComponent {
   }
 
   protected submit(): void {
-    const {
-      fio,
-      archiveNumber,
-      managersId,
-      currentLocationsId,
-      ...resultObject
-    } = this.form.value;
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      const {
+        fio,
+        archiveNumber,
+        managersId,
+        currentLocationsId,
+        ...newObject
+      } = this.form.value;
 
-    // this.context.completeWith(resultObject);
+      const resultObject: Applicant = {
+        ...this.data,
+        ...(newObject as Applicant),
+      };
+
+      this.context.completeWith(resultObject);
+    }
   }
 
   protected radioParams: radioParamsInterface[] = [

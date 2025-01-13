@@ -320,10 +320,10 @@ export class HomePageComponent {
   protected showDialog(object: Applicant): void {
     this.dialog(object).subscribe({
       next: (data: Applicant | boolean) => {
-        console.info(`Dialog emitted data = ${data}`);
+        console.log(`Dialog emitted data`, data);
       },
       complete: () => {
-        console.info('Dialog closed');
+        console.log('Dialog closed');
       },
     });
   }
