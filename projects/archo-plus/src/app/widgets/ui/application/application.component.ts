@@ -167,23 +167,28 @@ export class ApplicationComponent {
   }
 
   protected submit(): void {
-    this.form.markAllAsTouched();
-    if (this.form.valid) {
-      const {
-        fio,
-        archiveNumber,
-        managersId,
-        currentLocationsId,
-        ...newObject
-      } = this.form.value;
+    console.log(
+      "get('archiveNumber",
+      this?.form?.get('archiveNumber')?.invalid
+    );
+    console.log("get('isSnils", this?.form?.get('isSnils')?.invalid);
 
-      const resultObject: Applicant = {
-        ...this.data,
-        ...(newObject as Applicant),
-      };
-
-      this.context.completeWith(resultObject);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+
+    const { fio, archiveNumber, managersId, currentLocationsId, ...newObject } =
+      this.form.value;
+
+    const resultObject: Applicant = {
+      ...this.data,
+      ...(newObject as Applicant),
+    };
+
+    this.context.completeWith(resultObject);
+
+    console.log(this.form);
   }
 
   protected radioParams: radioParamsInterface[] = [
