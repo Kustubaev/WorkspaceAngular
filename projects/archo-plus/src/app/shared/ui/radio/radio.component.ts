@@ -37,13 +37,27 @@ export class RadioComponent {
   protected valid: boolean = true;
   ngOnInit() {
     this.formGroup = this.controlContainer.control as FormGroup;
-    this.valid = true;
 
-    const value = this.formGroup.get(
+    const control = this.formGroup.get(
       this.formGName ? this.formGName + '.' + this.formCName : this.formCName
-    )?.value;
+    );
 
-    this.valid = this.params.some((param) => param.value === value);
+    if (control) {
+      this.valid = this.params.some((param) => param.value === control.value);
+
+      // Подписка на изменения значения формы
+      control.valueChanges.subscribe((value) => {
+        this.valid = this.params.some((param) => param.value === value);
+        // Убираем вызов updateValueAndValidity, который вызывает ошибку
+      });
+    }
+  }
+
+  protected reset() {
+    const control = this.formGroup.get(
+      this.formGName ? this.formGName + '.' + this.formCName : this.formCName
+    );
+    control?.reset();
   }
 
   protected error = new TuiValidationError('Обязательно к заполнению!');
