@@ -320,7 +320,12 @@ export class HomePageComponent {
   protected showDialog(object: Applicant): void {
     this.dialog(object).subscribe({
       next: (data: Applicant | boolean) => {
-        console.log(`Dialog emitted data`, data);
+        if (typeof data === 'object') {
+          this.restService.patchApplicant(data.id, data).subscribe(
+            () => this.onReloadData()
+          );
+        }
+        console.log('Пришёл id и data', data);
       },
       complete: () => {
         console.log('Dialog closed');

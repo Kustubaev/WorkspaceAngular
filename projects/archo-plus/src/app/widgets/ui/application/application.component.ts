@@ -82,7 +82,10 @@ export class ApplicationComponent {
       { value: this.data.currentLocationsId, disabled: true },
     ],
 
-    isSnils: [{ value: '', disabled: this.isEdit() }, Validators.required],
+    isSnils: [
+      { value: this.data.isSnils, disabled: this.isEdit() },
+      Validators.required,
+    ],
 
     passport: this.fb.group({
       isMain: [
@@ -126,22 +129,37 @@ export class ApplicationComponent {
     }),
 
     opd: this.fb.group({
-      isFirst: [{ value: this.data.opd.isFirst, disabled: this.isEdit() }],
-      isSecond: [{ value: this.data.opd.isSecond, disabled: this.isEdit() }],
-      isThird: [{ value: this.data.opd.isThird, disabled: this.isEdit() }],
-      isFourth: [{ value: this.data.opd.isFourth, disabled: this.isEdit() }],
+      isFirst: [
+        { value: this.data.opd.isFirst, disabled: this.isEdit() },
+        Validators.required,
+      ],
+      isSecond: [
+        { value: this.data.opd.isSecond, disabled: this.isEdit() },
+        Validators.required,
+      ],
+      isThird: [
+        { value: this.data.opd.isThird, disabled: this.isEdit() },
+        Validators.required,
+      ],
+      isFourth: [
+        { value: this.data.opd.isFourth, disabled: this.isEdit() },
+        Validators.required,
+      ],
     }),
 
-    isMarriage: [{ value: this.data.isMarriage, disabled: this.isEdit() }],
-    isNameChange: [{ value: this.data.isNameChange, disabled: this.isEdit() }],
+    isMarriage: [
+      { value: this.data.isMarriage, disabled: this.isEdit() },
+      Validators.required,
+    ],
+    isNameChange: [
+      { value: this.data.isNameChange, disabled: this.isEdit() },
+      Validators.required,
+    ],
 
     comment: [{ value: this.data.comment, disabled: this.isEdit() }],
   });
 
-  ngOnInit() {
-    console.log('iSsnils work', this.form);
-    console.log('pasport', this.form.value);
-  }
+  ngOnInit() {}
 
   protected edit() {
     this.isEdit.set(false);
@@ -167,11 +185,14 @@ export class ApplicationComponent {
   }
 
   protected submit(): void {
-    console.log(
-      "get('archiveNumber",
-      this?.form?.get('archiveNumber')?.invalid
-    );
-    console.log("get('isSnils", this?.form?.get('isSnils')?.invalid);
+    // const formControls = this.form?.controls;
+    // for (const controlName in formControls) {
+    //   if (formControls.hasOwnProperty(controlName)) {
+    //     //@ts-ignore
+    //     const control = formControls[controlName];
+    //     console.log(`Поле: ${controlName}, Валидно: ${!control.invalid}`);
+    //   }
+    // }
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -188,7 +209,7 @@ export class ApplicationComponent {
 
     this.context.completeWith(resultObject);
 
-    console.log(this.form);
+    // console.log(this.form);
   }
 
   protected radioParams: radioParamsInterface[] = [

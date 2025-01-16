@@ -81,6 +81,10 @@ export class RestService {
     );
   }
 
+  public patchApplicant(id: string | number, object: Applicant) {
+    return this.applicantsService.patchJson(id, object);
+  }
+
   public getStatus(data?: getInterface) {
     this.status.set({
       isLoading: true,

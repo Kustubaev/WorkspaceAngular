@@ -139,7 +139,7 @@
       "nextLocationsId": "6",
       "archiveNumber": 102001,
       "comment": "Тут будет комментарий",
-      "isSnils": "1",
+      "isSnils": "0",
       "passport": {
         "isMain": "1",
         "isRegistration": "1",
@@ -150,14 +150,14 @@
         "isAttachmentPage": "1"
       },
       "statement": {
-        "isFirst": "1",
-        "isSecond": "1",
-        "isThird": "1"
+        "isFirst": "0",
+        "isSecond": "0",
+        "isThird": "0"
       },
       "opd": {
         "isFirst": "1",
         "isSecond": "1",
-        "isThird": "2",
+        "isThird": "1",
         "isFourth": "1"
       },
       "isMarriage": "3",
@@ -167,7 +167,12 @@
         "firstName": "Ivan",
         "lastName": "Petrov1",
         "middleName": "Sergeevich",
-        "directions": [1, 5, 6, 7],
+        "directions": [
+          1,
+          5,
+          6,
+          7
+        ],
         "dateOfBirth": "2000-01-01",
         "snils": "12345678900"
       }
@@ -208,7 +213,11 @@
         "firstName": "Oleg",
         "lastName": "Sidorov1",
         "middleName": "Vladimirovich",
-        "directions": [2, 4, 6],
+        "directions": [
+          2,
+          4,
+          6
+        ],
         "dateOfBirth": "1985-05-15",
         "snils": "98765432101"
       }
@@ -249,7 +258,9 @@
         "firstName": "Alexey",
         "lastName": "Ivanov",
         "middleName": "Igorevich",
-        "directions": [3],
+        "directions": [
+          3
+        ],
         "dateOfBirth": "1990-12-20",
         "snils": "12378945601"
       }
@@ -290,7 +301,10 @@
         "firstName": "Dmitry",
         "lastName": "Fedorov",
         "middleName": "Pavlovich",
-        "directions": [4, 7],
+        "directions": [
+          4,
+          7
+        ],
         "dateOfBirth": "1988-02-02",
         "snils": "15975348624"
       }
@@ -331,7 +345,10 @@
         "firstName": "Svetlana",
         "lastName": "Petrova",
         "middleName": "Sergeevna",
-        "directions": [2, 3],
+        "directions": [
+          2,
+          3
+        ],
         "dateOfBirth": "1992-07-30",
         "snils": "65432198700"
       }
@@ -372,12 +389,14 @@
         "firstName": "Natalia",
         "lastName": "Vasilieva1",
         "middleName": "Alexandrovna",
-        "directions": [1, 6],
+        "directions": [
+          1,
+          6
+        ],
         "dateOfBirth": "1995-09-12",
         "snils": "32165498712"
       }
     },
-
     {
       "id": "7f5d3b9d27c4eaf5da829f9bcf5b12345",
       "managersId": "2",
@@ -414,7 +433,12 @@
         "firstName": "Ivan",
         "lastName": "Petrov2",
         "middleName": "Sergeevich",
-        "directions": [1, 5, 6, 7],
+        "directions": [
+          1,
+          5,
+          6,
+          7
+        ],
         "dateOfBirth": "2000-01-01",
         "snils": "12345678900"
       }
@@ -455,7 +479,11 @@
         "firstName": "Oleg",
         "lastName": "Sidorov2",
         "middleName": "Vladimirovich",
-        "directions": [2, 4, 6],
+        "directions": [
+          2,
+          4,
+          6
+        ],
         "dateOfBirth": "1985-05-15",
         "snils": "98765432101"
       }
@@ -496,7 +524,9 @@
         "firstName": "Alexey",
         "lastName": "Ivanov",
         "middleName": "Igorevich",
-        "directions": [3],
+        "directions": [
+          3
+        ],
         "dateOfBirth": "1990-12-20",
         "snils": "12378945601"
       }
@@ -537,7 +567,10 @@
         "firstName": "Dmitry",
         "lastName": "Fedorov",
         "middleName": "Pavlovich",
-        "directions": [4, 7],
+        "directions": [
+          4,
+          7
+        ],
         "dateOfBirth": "1988-02-02",
         "snils": "15975348624"
       }
@@ -578,7 +611,10 @@
         "firstName": "Svetlana",
         "lastName": "Petrova",
         "middleName": "Sergeevna",
-        "directions": [2, 3],
+        "directions": [
+          2,
+          3
+        ],
         "dateOfBirth": "1992-07-30",
         "snils": "65432198700"
       }
@@ -619,12 +655,14 @@
         "firstName": "Natalia",
         "lastName": "Vasilieva2",
         "middleName": "Alexandrovna",
-        "directions": [1, 6],
+        "directions": [
+          1,
+          6
+        ],
         "dateOfBirth": "1995-09-12",
         "snils": "32165498712"
       }
     },
-
     {
       "id": "13f5d3b9d27c4eaf5da829f9bcf5b12345",
       "managersId": "2",
@@ -661,7 +699,12 @@
         "firstName": "Ivan",
         "lastName": "Petrov3",
         "middleName": "Sergeevich",
-        "directions": [1, 5, 6, 7],
+        "directions": [
+          1,
+          5,
+          6,
+          7
+        ],
         "dateOfBirth": "2000-01-01",
         "snils": "12345678900"
       }
@@ -702,7 +745,11 @@
         "firstName": "Oleg",
         "lastName": "Sidorov3",
         "middleName": "Vladimirovich",
-        "directions": [2, 4, 6],
+        "directions": [
+          2,
+          4,
+          6
+        ],
         "dateOfBirth": "1985-05-15",
         "snils": "98765432101"
       }
@@ -743,7 +790,9 @@
         "firstName": "Alexey",
         "lastName": "Ivanov",
         "middleName": "Igorevich",
-        "directions": [3],
+        "directions": [
+          3
+        ],
         "dateOfBirth": "1990-12-20",
         "snils": "12378945601"
       }
@@ -784,7 +833,10 @@
         "firstName": "Dmitry",
         "lastName": "Fedorov",
         "middleName": "Pavlovich",
-        "directions": [4, 7],
+        "directions": [
+          4,
+          7
+        ],
         "dateOfBirth": "1988-02-02",
         "snils": "15975348624"
       }
@@ -825,7 +877,10 @@
         "firstName": "Svetlana",
         "lastName": "Petrova",
         "middleName": "Sergeevna",
-        "directions": [2, 3],
+        "directions": [
+          2,
+          3
+        ],
         "dateOfBirth": "1992-07-30",
         "snils": "65432198700"
       }
@@ -866,12 +921,14 @@
         "firstName": "Natalia",
         "lastName": "Vasilieva3",
         "middleName": "Alexandrovna",
-        "directions": [1, 6],
+        "directions": [
+          1,
+          6
+        ],
         "dateOfBirth": "1995-09-12",
         "snils": "32165498712"
       }
     },
-
     {
       "id": "19f5d3b9d27c4eaf5da829f9bcf5b12345",
       "managersId": "2",
@@ -908,7 +965,12 @@
         "firstName": "Ivan",
         "lastName": "Petrov4",
         "middleName": "Sergeevich",
-        "directions": [1, 5, 6, 7],
+        "directions": [
+          1,
+          5,
+          6,
+          7
+        ],
         "dateOfBirth": "2000-01-01",
         "snils": "12345678900"
       }
@@ -949,7 +1011,11 @@
         "firstName": "Oleg",
         "lastName": "Sidorov4",
         "middleName": "Vladimirovich",
-        "directions": [2, 4, 6],
+        "directions": [
+          2,
+          4,
+          6
+        ],
         "dateOfBirth": "1985-05-15",
         "snils": "98765432101"
       }
@@ -990,7 +1056,9 @@
         "firstName": "Alexey",
         "lastName": "Ivanov",
         "middleName": "Igorevich",
-        "directions": [3],
+        "directions": [
+          3
+        ],
         "dateOfBirth": "1990-12-20",
         "snils": "12378945601"
       }
@@ -1031,7 +1099,10 @@
         "firstName": "Dmitry",
         "lastName": "Fedorov",
         "middleName": "Pavlovich",
-        "directions": [4, 7],
+        "directions": [
+          4,
+          7
+        ],
         "dateOfBirth": "1988-02-02",
         "snils": "15975348624"
       }
@@ -1072,7 +1143,10 @@
         "firstName": "Svetlana",
         "lastName": "Petrova",
         "middleName": "Sergeevna",
-        "directions": [2, 3],
+        "directions": [
+          2,
+          3
+        ],
         "dateOfBirth": "1992-07-30",
         "snils": "65432198700"
       }
@@ -1113,13 +1187,15 @@
         "firstName": "Natalia",
         "lastName": "Vasilieva4",
         "middleName": "Alexandrovna",
-        "directions": [1, 6],
+        "directions": [
+          1,
+          6
+        ],
         "dateOfBirth": "1995-09-12",
         "snils": "32165498712"
       }
     }
   ],
-
   "teachers": [
     {
       "id": "1",
@@ -1128,7 +1204,10 @@
       "lastName": "Doe",
       "subject": "Math",
       "averageGrade": 4.5,
-      "groups": ["АВб-22-2", "АВб-23-2"],
+      "groups": [
+        "АВб-22-2",
+        "АВб-23-2"
+      ],
       "classes": {
         "first": 1,
         "second": 2
@@ -1141,7 +1220,10 @@
       "lastName": "Johnson",
       "subject": "Math",
       "averageGrade": 4.2,
-      "groups": ["АВб-22-2", "АВб-23-3"],
+      "groups": [
+        "АВб-22-2",
+        "АВб-23-3"
+      ],
       "classes": {
         "first": 1,
         "second": 3
@@ -1154,7 +1236,10 @@
       "lastName": "Williams",
       "subject": "Math",
       "averageGrade": 4.8,
-      "groups": ["АВб-22-2", "АВб-23-2"],
+      "groups": [
+        "АВб-22-2",
+        "АВб-23-2"
+      ],
       "classes": {
         "first": 2,
         "second": 2
@@ -1167,7 +1252,10 @@
       "lastName": "Williams",
       "subject": "Math",
       "averageGrade": 4.8,
-      "groups": ["АВб-22-2", "АВб-23-2"],
+      "groups": [
+        "АВб-22-2",
+        "АВб-23-2"
+      ],
       "classes": {
         "first": 2,
         "second": 2
@@ -1400,7 +1488,6 @@
       "currentStudyYear": 3
     }
   ],
-
   "statusLocations": [
     {
       "id": "1",
