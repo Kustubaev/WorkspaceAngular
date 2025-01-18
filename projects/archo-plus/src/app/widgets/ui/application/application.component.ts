@@ -194,6 +194,8 @@ export class ApplicationComponent {
     //   }
     // }
 
+    console.log('this.form.value', this.form.value);
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

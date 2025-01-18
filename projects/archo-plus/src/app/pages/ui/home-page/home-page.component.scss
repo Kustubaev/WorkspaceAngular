@@ -34,12 +34,20 @@ td {
   overflow-y: scroll;
 }
 
-.form {
+.header__search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 2rem;
+  gap: 1rem;
 }
 
-.form__input {
-  margin-bottom: 1rem;
+.form {
+  width: 100%;
+}
+
+.drawer {
+  top: 0px;
 }
 
 // .box {

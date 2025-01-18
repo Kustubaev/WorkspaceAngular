@@ -1,7 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import type { TuiTablePaginationEvent } from '@taiga-ui/addon-table';
 import {
   TuiReorder,
@@ -12,6 +17,7 @@ import { TuiLet } from '@taiga-ui/cdk';
 import {
   TuiButton,
   tuiDialog,
+  TuiDialogService,
   TuiDropdown,
   TuiIcon,
   TuiLabel,
@@ -19,7 +25,7 @@ import {
   TuiNumberFormat,
   TuiScrollbar,
 } from '@taiga-ui/core';
-import { TuiCheckbox, TuiChevron } from '@taiga-ui/kit';
+import { TUI_CONFIRM, TuiCheckbox, TuiChevron } from '@taiga-ui/kit';
 import {
   TuiInputModule,
   TuiInputNumberModule,
@@ -27,11 +33,17 @@ import {
 } from '@taiga-ui/legacy';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, debounceTime, startWith, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter, startWith, tap } from 'rxjs';
 import { Applicant } from '../../../models/applicant.model';
 import { RestService } from '../../../service/rest.service';
 import { ThIconComponent } from '../../../shared/ui/th-icon/th-icon.component';
 import { ApplicationComponent } from '../../../widgets/ui/application/application.component';
+
+import { TuiRepeatTimes } from '@taiga-ui/cdk';
+import { TuiPopup, TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import { TuiDrawer } from '@taiga-ui/kit';
+import { TuiHeader } from '@taiga-ui/layout';
+import { FormFilterComponent } from '../../../widgets/ui/form-filter/form-filter.component';
 
 // type Key =
 //   | 'archiveNumber'
@@ -113,6 +125,15 @@ import { ApplicationComponent } from '../../../widgets/ui/application/applicatio
     TuiScrollbar,
     TuiIcon,
     ThIconComponent,
+    ReactiveFormsModule,
+    TuiButton,
+    TuiDrawer,
+    TuiHeader,
+    TuiPopup,
+    TuiRepeatTimes,
+    TuiTextfield,
+    TuiTitle,
+    FormFilterComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
@@ -321,9 +342,9 @@ export class HomePageComponent {
     this.dialog(object).subscribe({
       next: (data: Applicant | boolean) => {
         if (typeof data === 'object') {
-          this.restService.patchApplicant(data.id, data).subscribe(
-            () => this.onReloadData()
-          );
+          this.restService
+            .patchApplicant(data.id, data)
+            .subscribe(() => this.onReloadData());
         }
         console.log('Пришёл id и data', data);
       },
@@ -331,6 +352,32 @@ export class HomePageComponent {
         console.log('Dialog closed');
       },
     });
+  }
+
+  protected readonly dialogs = inject(TuiDialogService);
+  protected readonly control = new FormControl('Some value');
+  protected readonly open = signal(true);
+
+  public onClose(): void {
+    if (this.control.pristine) {
+      this.open.set(false);
+
+      return;
+    }
+
+    this.dialogs
+      .open(TUI_CONFIRM, {
+        label: 'Cancel editing form?',
+        size: 's',
+        data: {
+          content: 'You have unsaved changes that will be lost',
+        },
+      })
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.open.set(false);
+        this.control.reset('Some value');
+      });
   }
 }
 

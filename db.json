@@ -139,7 +139,7 @@
       "nextLocationsId": "6",
       "archiveNumber": 102001,
       "comment": "Тут будет комментарий",
-      "isSnils": "0",
+      "isSnils": "1",
       "passport": {
         "isMain": "1",
         "isRegistration": "1",
@@ -150,9 +150,9 @@
         "isAttachmentPage": "1"
       },
       "statement": {
-        "isFirst": "0",
-        "isSecond": "0",
-        "isThird": "0"
+        "isFirst": "1",
+        "isSecond": "1",
+        "isThird": "1"
       },
       "opd": {
         "isFirst": "1",
@@ -160,8 +160,8 @@
         "isThird": "1",
         "isFourth": "1"
       },
-      "isMarriage": "3",
-      "isNameChange": "3",
+      "isMarriage": "1",
+      "isNameChange": "1",
       "person": {
         "id": "719240001",
         "firstName": "Ivan",
@@ -273,7 +273,7 @@
       "nextLocationsId": "0",
       "archiveNumber": 402004,
       "comment": "Четвертый комментарий",
-      "isSnils": "0",
+      "isSnils": "1",
       "passport": {
         "isMain": "1",
         "isRegistration": "0",
@@ -423,7 +423,7 @@
       "opd": {
         "isFirst": "1",
         "isSecond": "1",
-        "isThird": "2",
+        "isThird": "1",
         "isFourth": "1"
       },
       "isMarriage": "3",
@@ -539,15 +539,15 @@
       "nextLocationsId": "0",
       "archiveNumber": 107010,
       "comment": "Четвертый комментарий",
-      "isSnils": "0",
+      "isSnils": "1",
       "passport": {
         "isMain": "1",
-        "isRegistration": "0",
+        "isRegistration": "1",
         "isChangePassport": "1"
       },
       "diploma": {
         "isTitlePage": "1",
-        "isAttachmentPage": "0"
+        "isAttachmentPage": "1"
       },
       "statement": {
         "isFirst": "1",
@@ -555,10 +555,10 @@
         "isThird": "0"
       },
       "opd": {
-        "isFirst": "0",
+        "isFirst": "1",
         "isSecond": "1",
         "isThird": "1",
-        "isFourth": "0"
+        "isFourth": "1"
       },
       "isMarriage": "1",
       "isNameChange": "1",

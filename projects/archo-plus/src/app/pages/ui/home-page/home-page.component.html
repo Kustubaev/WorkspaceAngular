@@ -9,21 +9,24 @@
 <div>Загрузка...</div>
 } -->
 
-<form class="form" [formGroup]="searchForm">
-  <tui-input
-    formControlName="search"
-    class="form__input"
-    [tuiTextfieldCleaner]="true"
-    [tuiTextfieldIcon]="'@tui.search'"
-  >
-    Найти дело
-    <input
-      placeholder="Введите номер в архиве (из-за бэка пока так)..."
-      tuiTextfieldLegacy
-      type="text"
-    />
-  </tui-input>
-</form>
+<div class="header__search">
+  <form class="form" [formGroup]="searchForm">
+    <tui-input
+      formControlName="search"
+      class="form__input"
+      [tuiTextfieldCleaner]="true"
+      [tuiTextfieldIcon]="'@tui.search'"
+    >
+      Найти дело
+      <input
+        placeholder="Введите номер в архиве (из-за бэка пока так)..."
+        tuiTextfieldLegacy
+        type="text"
+      />
+    </tui-input>
+  </form>
+  <button tuiButton type="button" (click)="open.set(true)">Фильтры</button>
+</div>
 
 <tui-loader [overlay]="true" [showLoader]="!!applicants().isLoading">
   <tui-scrollbar class="table__scrollbar">
@@ -315,6 +318,24 @@
     </table>
   </tui-scrollbar>
 </tui-loader>
+
+<tui-drawer
+  *tuiPopup="open()"
+  direction="left"
+  class="drawer"
+  [overlay]="true"
+  (click.self)="onClose()"
+>
+  <header class="header">
+    <h2 tuiHeader>
+      <div tuiTitle>Фильтры</div>
+      <div tuiAccessories>
+        <button tuiButton type="button" (click)="onClose()">Закрыть</button>
+      </div>
+    </h2>
+  </header>
+  <app-form-filter></app-form-filter>
+</tui-drawer>
 
 <!-- <div class="box">
   @for (status of status(); track status.id) {
