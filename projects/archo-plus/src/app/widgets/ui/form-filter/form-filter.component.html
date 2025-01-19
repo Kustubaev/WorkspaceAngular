@@ -1,7 +1,172 @@
 <form class="form" [formGroup]="form">
-  <app-checkbox
-    formGName="passport"
-    formAName="isMain"
-    [params]="radioParams"
-  ></app-checkbox>
+  <h3 class="checkbox__box-title">Поля ввода</h3>
+
+  <div class="search__box">
+    <div formGroupName="person">
+      <tui-input
+        formControlName="firstName"
+        class="form__input-search"
+        tuiTextfieldSize="l"
+        [tuiTextfieldCleaner]="true"
+        [tuiTextfieldIcon]="'@tui.search'"
+      >
+        Введите фамилию
+        <input tuiTextfieldLegacy type="text" />
+      </tui-input>
+      <tui-input
+        formControlName="lastName"
+        class="form__input-search"
+        tuiTextfieldSize="l"
+        [tuiTextfieldCleaner]="true"
+        [tuiTextfieldIcon]="'@tui.search'"
+      >
+        Введите имя
+        <input tuiTextfieldLegacy type="text" />
+      </tui-input>
+      <tui-input
+        formControlName="middleName"
+        class="form__input-search"
+        tuiTextfieldSize="l"
+        [tuiTextfieldCleaner]="true"
+        [tuiTextfieldIcon]="'@tui.search'"
+      >
+        Введите отчество
+        <input tuiTextfieldLegacy type="text" />
+      </tui-input>
+    </div>
+    <tui-input
+      formControlName="archiveNumber"
+      class="form__input-search"
+      tuiTextfieldSize="l"
+      [tuiTextfieldCleaner]="true"
+      [tuiTextfieldIcon]="'@tui.search'"
+    >
+      Введите номер в архиве
+      <input tuiTextfieldLegacy type="number" />
+    </tui-input>
+  </div>
+
+  <h3 class="checkbox__box-title">Паспорт</h3>
+
+  <div class="checkbox__box">
+    <app-checkbox
+      title="Главная страница"
+      [formGroup]="form"
+      forGName="passport"
+      formAName="isMain"
+      [params]="radioParams"
+    ></app-checkbox>
+    <app-checkbox
+      title="Регистрация"
+      [formGroup]="form"
+      forGName="passport"
+      formAName="isRegistration"
+      [params]="radioParams"
+    ></app-checkbox>
+    <app-checkbox
+      title="Смена паспорта"
+      [formGroup]="form"
+      forGName="passport"
+      formAName="isChangePassport"
+      [params]="radioParams"
+    ></app-checkbox>
+  </div>
+
+  <h3 class="checkbox__box-title">Заявление</h3>
+  <div class="checkbox__box">
+    <app-checkbox
+      title="1-2"
+      [formGroup]="form"
+      forGName="statement"
+      formAName="isFirst"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+    <app-checkbox
+      title="5-6"
+      [formGroup]="form"
+      forGName="statement"
+      formAName="isSecond"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+    <app-checkbox
+      title="18-19"
+      [formGroup]="form"
+      forGName="statement"
+      formAName="isThird"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+  </div>
+
+  <h3 class="checkbox__box-title">ОПД</h3>
+  <div class="checkbox__box">
+    <app-checkbox
+      title="Согласие 1"
+      [formGroup]="form"
+      forGName="opd"
+      formAName="isFirst"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+    <app-checkbox
+      title="Согласие 2"
+      [formGroup]="form"
+      forGName="opd"
+      formAName="isSecond"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+    <app-checkbox
+      title="Приложение 1"
+      [formGroup]="form"
+      forGName="opd"
+      formAName="isThird"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+    <app-checkbox
+      title="Приложение 2"
+      [formGroup]="form"
+      forGName="opd"
+      formAName="isFourth"
+      [params]="radioParams.slice(0, 2)"
+    ></app-checkbox>
+  </div>
+
+  <div class="checkbox__box-grid">
+    <h3 class="checkbox__box-title">Диплом</h3>
+    <h3 class="checkbox__box-title">Остальное</h3>
+    <div class="checkbox__box no-border">
+      <app-checkbox
+        title="Главная"
+        [formGroup]="form"
+        forGName="diploma"
+        formAName="isTitlePage"
+        [params]="radioParams.slice(0, 2)"
+      ></app-checkbox>
+      <app-checkbox
+        title="Регистрация"
+        [formGroup]="form"
+        forGName="diploma"
+        formAName="isAttachmentPage"
+        [params]="radioParams.slice(0, 2)"
+      ></app-checkbox>
+    </div>
+    <div class="checkbox__box no-border">
+      <app-checkbox
+        title="СНИЛС"
+        [formGroup]="form"
+        formAName="isSnils"
+        [params]="radioParams.slice(0, 2).concat(radioParams.slice(3, 4))"
+      ></app-checkbox>
+      <app-checkbox
+        title="Брак"
+        [formGroup]="form"
+        formAName="isMarriage"
+        [params]="radioParams"
+      ></app-checkbox>
+      <app-checkbox
+        title="Смена ФИО"
+        [formGroup]="form"
+        formAName="isNameChange"
+        [params]="radioParams"
+      ></app-checkbox>
+    </div>
+  </div>
 </form>

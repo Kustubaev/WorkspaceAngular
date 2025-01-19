@@ -1,12 +1,15 @@
-<form *ngIf="formGroup" [formGroup]="formGroup">
-  <div tuiGroup [collapsed]="true" [formGroupName]="formGName">
-    <label *ngFor="let param of params" tuiLabel>
+<form *ngIf="newForm" [formGroup]="newForm" class="form">
+  <h4 class="title">{{ title }}</h4>
+  <div class="checkbox__container">
+    <label *ngFor="let param of params" tuiLabel class="label">
       <input
-        [formArrayName]="formAName"
+        [formControlName]="param.value"
+        [value]="param.value"
         type="checkbox"
         tuiSwitch
-        [value]="param.value"
-        (change)="onCheckboxChange($event)"
+        size="m"
+        class="checkbox__input"
+        
       />
       {{ param.name }}
     </label>

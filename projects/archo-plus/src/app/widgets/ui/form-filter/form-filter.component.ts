@@ -1,57 +1,37 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TuiTextfield } from '@taiga-ui/core';
+import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
+import { FormFilterService } from '../../../service/form-filter.service';
 import { CheckboxComponent } from '../../../shared/ui/checkbox/checkbox.component';
 import { radioParamsInterface } from '../../../shared/ui/radio/radio.component';
 
 @Component({
   selector: 'app-form-filter',
   standalone: true,
-  imports: [ReactiveFormsModule, CheckboxComponent],
+  imports: [
+    ReactiveFormsModule,
+    CheckboxComponent,
+    TuiInputModule,
+    TuiTextfield,
+    TuiTextfieldControllerModule,
+  ],
   templateUrl: './form-filter.component.html',
   styleUrl: './form-filter.component.scss',
 })
 export class FormFilterComponent {
-  private readonly fb = inject(FormBuilder);
-  protected form = this.fb.group({
-    person: this.fb.group({
-      firstName: [{ value: '' }],
-      lastName: [{ value: '' }],
-      middleName: [{ value: '' }],
-    }),
+  protected form: FormGroup;
+  private formFilterService = inject(FormFilterService);
 
-    managersId: [{ value: '' }],
-    currentLocationsId: [{ value: '' }],
-    archiveNumber: [{ value: '' }],
+  constructor() {
+    this.form = this.formFilterService.createForm();
+  }
 
-    isSnils: this.fb.array([]),
-
-    passport: this.fb.group({
-      isMain: this.fb.array([]),
-      isRegistration: this.fb.array([]),
-      isChangePassport: this.fb.array([]),
-    }),
-
-    diploma: this.fb.group({
-      isTitlePage: this.fb.array([]),
-      isAttachmentPage: this.fb.array([]),
-    }),
-
-    statement: this.fb.group({
-      isFirst: this.fb.array([]),
-      isSecond: this.fb.array([]),
-      isThird: this.fb.array([]),
-    }),
-
-    opd: this.fb.group({
-      isFirst: this.fb.array([]),
-      isSecond: this.fb.array([]),
-      isThird: this.fb.array([]),
-      isFourth: this.fb.array([]),
-    }),
-
-    isMarriage: this.fb.array([]),
-    isNameChange: this.fb.array([]),
-  });
+  ngOnInit() {
+    this.form.valueChanges.subscribe((value) => {
+      console.log('form.valueChanges', value.archiveNumber);
+    });
+  }
 
   protected radioParams: radioParamsInterface[] = [
     {

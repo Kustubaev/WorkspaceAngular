@@ -1,0 +1,34 @@
+.checkbox__box-title {
+  font-size: var(--fz-l);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.checkbox__box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--tui-border-normal);
+}
+
+.no-border {
+  border-bottom: none;
+}
+
+.checkbox__box-grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: auto auto;
+  gap: 0 1rem;
+}
+
+.search__box {
+  margin-bottom: 1rem;
+}
+
+.form__input-search {
+  margin-bottom: 0.5rem;
+}

@@ -1,13 +1,3 @@
-<!-- <div>Это главная страница!</div>
-@for (applicant of applicants(); track applicant.id) {
-<div>
-  {{ applicant.id }} {{ applicant.person.firstName }}
-  {{ applicant.person.lastName }}
-  <button>-</button>
-</div>
-}@empty {
-<div>Загрузка...</div>
-} -->
 
 <div class="header__search">
   <form class="form" [formGroup]="searchForm">
@@ -336,37 +326,3 @@
   </header>
   <app-form-filter></app-form-filter>
 </tui-drawer>
-
-<!-- <div class="box">
-  @for (status of status(); track status.id) {
-  <div>
-    {{ status.id }} {{ status.text }}
-    <button>-</button>
-  </div>
-  }@empty {
-  <div>Загрузка...</div>
-  }
-</div>
-
-<div class="box">
-  @for (location of locations(); track location.id) {
-  <div>
-    {{ location.id }} {{ location.text }}
-    <button>-</button>
-  </div>
-  }@empty {
-  <div>Загрузка...</div>
-  }
-</div>
-
-<div class="box">
-  @for (manager of managers(); track manager.id) {
-  <div>
-    {{ manager.id }} {{ manager.firstName }} {{ manager.lastName }}
-    {{ manager.middleName }}
-    <button>-</button>
-  </div>
-  }@empty {
-  <div>Загрузка...</div>
-  }
-</div> -->

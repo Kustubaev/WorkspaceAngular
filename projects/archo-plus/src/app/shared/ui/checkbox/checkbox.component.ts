@@ -1,16 +1,12 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  ControlContainer,
-  FormArray,
-  FormControl,
-  FormGroup,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { radioParamsInterface } from '../radio/radio.component';
 
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TuiGroup, TuiLabel } from '@taiga-ui/core';
 import { TuiSwitch } from '@taiga-ui/kit';
+import { FormFilterService } from '../../../service/form-filter.service';
 
 @Component({
   selector: 'app-checkbox',
@@ -20,38 +16,42 @@ import { TuiSwitch } from '@taiga-ui/kit';
   styleUrl: './checkbox.component.scss',
 })
 export class CheckboxComponent {
+  @Input() formGroup!: FormGroup;
+  @Input() forGName!: string;
   @Input() formAName!: string;
-  @Input() formGName: string | null = null;
   @Input() params: radioParamsInterface[] = [];
+  @Input() title!: string;
 
-  protected formGroup!: FormGroup;
-  private controlContainer: ControlContainer = inject(ControlContainer);
+  protected formFilterService = inject(FormFilterService);
+
+  protected readonly fb = inject(FormBuilder);
+  protected newForm = this.fb.group({});
 
   ngOnInit() {
-    this.formGroup = this.controlContainer.control as FormGroup;
+    this.params.forEach((param) => {
+      this.newForm.addControl(param.value, this.fb.control(false));
+    });
 
-    // const control = this.formGroup.get(
-    //   this.formGName ? this.formGName + '.' + this.formAName : this.formAName
-    // ) as FormArray;
-
-    // control.push(new FormControl('1' as string));
-    // control.push(new FormControl('0' as string));
-    // control.push(new FormControl('3' as string));
-    // console.log('this.control', control);
+    this.newForm.valueChanges.subscribe((values) => {
+      this.updateFormArray(values);
+    });
   }
 
-  onCheckboxChange(event: any) {
+  private updateFormArray(values: objectResult): void {
     const control = this.formGroup.get(
-      this.formGName ? this.formGName + '.' + this.formAName : this.formAName
+      this.forGName ? this.forGName + '.' + this.formAName : this.formAName
     ) as FormArray;
 
-    if (event.target.checked) {
-      control.push(new FormControl(event.target.value));
-    } else {
-      const index = control.controls.findIndex(
-        (x) => x.value === event.target.value
-      );
-      control.removeAt(index);
+    for (const key of Object.keys(values)) {
+      if (!control.value.includes(key) && values[key]) {
+        this.formFilterService.addControlToArray(control, key);
+      } else if (values[key] === false) {
+        this.formFilterService.removeControlFromArray(control, key);
+      }
     }
   }
+}
+
+interface objectResult {
+  [key: string]: boolean;
 }
