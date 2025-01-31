@@ -8,24 +8,17 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import type { TuiTablePaginationEvent } from '@taiga-ui/addon-table';
-import {
-  TuiReorder,
-  TuiTable,
-  TuiTablePagination,
-} from '@taiga-ui/addon-table';
+import { TuiTable, TuiTablePagination } from '@taiga-ui/addon-table';
 import { TuiLet } from '@taiga-ui/cdk';
 import {
   TuiButton,
   tuiDialog,
   TuiDialogService,
   TuiDropdown,
-  TuiIcon,
-  TuiLabel,
   TuiLoader,
-  TuiNumberFormat,
   TuiScrollbar,
 } from '@taiga-ui/core';
-import { TUI_CONFIRM, TuiCheckbox, TuiChevron } from '@taiga-ui/kit';
+import { TUI_CONFIRM } from '@taiga-ui/kit';
 import {
   TuiInputModule,
   TuiInputNumberModule,
@@ -39,7 +32,6 @@ import { RestService } from '../../../service/rest.service';
 import { ThIconComponent } from '../../../shared/ui/th-icon/th-icon.component';
 import { ApplicationComponent } from '../../../widgets/ui/application/application.component';
 
-import { TuiRepeatTimes } from '@taiga-ui/cdk';
 import { TuiPopup, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { TuiDrawer } from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
@@ -109,28 +101,21 @@ import { FormFilterComponent } from '../../../widgets/ui/form-filter/form-filter
     NgIf,
     ReactiveFormsModule,
     TuiButton,
-    TuiCheckbox,
-    TuiChevron,
     TuiDropdown,
     TuiInputModule,
     TuiInputNumberModule,
-    TuiLabel,
     TuiLet,
     TuiLoader,
-    TuiNumberFormat,
-    TuiReorder,
     TuiTable,
     TuiTablePagination,
     TuiTextfieldControllerModule,
     TuiScrollbar,
-    TuiIcon,
     ThIconComponent,
     ReactiveFormsModule,
     TuiButton,
     TuiDrawer,
     TuiHeader,
     TuiPopup,
-    TuiRepeatTimes,
     TuiTextfield,
     TuiTitle,
     FormFilterComponent,
@@ -161,7 +146,7 @@ export class HomePageComponent {
           conditions: [
             {
               name: 'archiveNumber',
-              comparison: '==',
+              comparison: '>=',
               value: this.searchForm.value.search as string,
             },
           ],

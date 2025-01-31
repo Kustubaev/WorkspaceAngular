@@ -17,6 +17,7 @@ import {
 })
 export class RestService {
   private baseUrl = 'http://localhost:5001';
+  // private baseUrl = 'https://my-json-server.typicode.com/Kustubaev/Archo-back';
 
   protected applicantsService: JsonService<Applicant>;
   protected statusService: JsonService<Status>;

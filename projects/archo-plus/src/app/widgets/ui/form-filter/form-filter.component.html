@@ -1,6 +1,5 @@
 <form class="form" [formGroup]="form">
   <h3 class="checkbox__box-title">Поля ввода</h3>
-
   <div class="search__box">
     <div formGroupName="person">
       <tui-input
@@ -46,8 +45,41 @@
     </tui-input>
   </div>
 
-  <h3 class="checkbox__box-title">Паспорт</h3>
+  <h3 class="checkbox__box-title">Выбор менеджера</h3>
+  <tui-multi-select
+    [formControl]="managersIdControl"
+    [tuiTextfieldLabelOutside]="true"
+    [(search)]="search"
+    tuiTextfieldSize="l"
+    placeholder="Введите номер менеджера"
+    class="form__select"
+  >
+    Менеджеры
+    <tui-data-list-wrapper
+      *tuiDataList
+      tuiMultiSelectGroup
+      [items]="filter(search, MANAGERS_ID)"
+    />
+  </tui-multi-select>
 
+  <h3 class="checkbox__box-title">Выбор место нахождения дела</h3>
+  <tui-multi-select
+    [formControl]="managersIdControl"
+    [tuiTextfieldLabelOutside]="true"
+    [(search)]="search"
+    tuiTextfieldSize="l"
+    placeholder="Введите номер расположения дела"
+    class="form__select"
+  >
+    Расположение дела
+    <tui-data-list-wrapper
+      *tuiDataList
+      tuiMultiSelectGroup
+      [items]="filter(search, POSITIONS_ID)"
+    />
+  </tui-multi-select>
+
+  <h3 class="checkbox__box-title">Паспорт</h3>
   <div class="checkbox__box">
     <app-checkbox
       title="Главная страница"

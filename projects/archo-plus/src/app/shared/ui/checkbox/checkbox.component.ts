@@ -11,7 +11,7 @@ import { FormFilterService } from '../../../service/form-filter.service';
 @Component({
   selector: 'app-checkbox',
   standalone: true,
-  imports: [ReactiveFormsModule, TuiLabel, TuiSwitch, CommonModule, TuiGroup],
+  imports: [ReactiveFormsModule, TuiLabel, TuiSwitch, CommonModule],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
 })

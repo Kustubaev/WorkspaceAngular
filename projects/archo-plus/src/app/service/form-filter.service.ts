@@ -16,8 +16,8 @@ export class FormFilterService {
 
       archiveNumber: '',
 
-      managersId: [{ value: '' }],
-      currentLocationsId: [{ value: '' }],
+      managersId: [],
+      currentLocationsId: [],
 
       passport: this.fb.group({
         isMain: this.fb.array([]),
@@ -46,7 +46,7 @@ export class FormFilterService {
       isSnils: this.fb.array([]),
       isMarriage: this.fb.array([]),
       isNameChange: this.fb.array([]),
-    });
+    }) ;
   }
 
   public addControlToArray(formArray: FormArray, controlValue: string): void {

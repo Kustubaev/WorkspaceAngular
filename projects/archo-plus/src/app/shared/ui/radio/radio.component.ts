@@ -18,8 +18,6 @@ import { TuiSwitch } from '@taiga-ui/kit';
     TuiRadio,
     TuiBlock,
     TuiError,
-    TuiLabel,
-    TuiSwitch,
     ReactiveFormsModule,
     CommonModule,
   ],

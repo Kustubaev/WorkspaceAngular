@@ -299,7 +299,7 @@
             <tui-table-pagination
               class="tui-space_top-2"
               [page]="(page$ | async) || 0"
-              [total]="applicants()?.pagination?.items || 0"
+              [total]="applicants().pagination?.items || 0"
               (paginationChange)="onPagination($event)"
             />
           </td>
