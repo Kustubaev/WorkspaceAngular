@@ -27,7 +27,7 @@ import {
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, debounceTime, filter, startWith, tap } from 'rxjs';
-import { Applicant } from '../../../models/applicant.model';
+
 import { RestService } from '../../../service/rest.service';
 import { ThIconComponent } from '../../../shared/ui/th-icon/th-icon.component';
 import { ApplicationComponent } from '../../../widgets/ui/application/application.component';
@@ -35,6 +35,7 @@ import { ApplicationComponent } from '../../../widgets/ui/application/applicatio
 import { TuiPopup, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { TuiDrawer } from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
+import { Applicant } from '../../../models/applicant.model';
 import { FormFilterComponent } from '../../../widgets/ui/form-filter/form-filter.component';
 
 // type Key =

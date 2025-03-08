@@ -1,0 +1,13 @@
+.body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font: var(--tui-font-text-ui-l);
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--c-light);
+  color: var(--c-dark);
+}
+
+.container {
+  flex: 1;
+}

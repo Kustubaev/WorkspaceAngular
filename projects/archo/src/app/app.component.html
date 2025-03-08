@@ -1,0 +1,9 @@
+<tui-root [attr.tuiTheme]="darkMode() ? 'dark' : null">
+  <div class="body">
+    <app-header/>
+    <div class="container">
+      <router-outlet />
+    </div>
+    <app-footer/>
+  </div>
+</tui-root>

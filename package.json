@@ -10,7 +10,8 @@
     "apiServer": "json-server db.json --port 5001",
     "start:archo": "ng serve --project=\"archo-plus\" --port=4200",
     "start:todo": "ng serve --project=\"todo-list\" --port=4201",
-    "start:cripto": "ng serve --project=\"Cripto\" --port=4202"
+    "start:cripto": "ng serve --project=\"Cripto\" --port=4202",
+    "start:arc": "ng serve --project=\"archo\" --port=4203"
   },
   "private": true,
   "dependencies": {

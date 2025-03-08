@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
@@ -6,16 +5,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TuiAmountPipe } from '@taiga-ui/addon-commerce';
-import { TuiAutoFocus } from '@taiga-ui/cdk';
 import type { TuiDialogContext } from '@taiga-ui/core';
-import { TuiButton, tuiDialog, TuiGroup, TuiTextfield } from '@taiga-ui/core';
-import {
-  TuiBlock,
-  TuiDataListWrapper,
-  TuiFade,
-  TuiSlider,
-} from '@taiga-ui/kit';
+import { TuiButton, tuiDialog, TuiTextfield } from '@taiga-ui/core';
+import { TuiDataListWrapper, TuiSlider } from '@taiga-ui/kit';
 import {
   TuiInputModule,
   TuiSelectModule,
@@ -23,13 +15,13 @@ import {
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
 import { injectContext } from '@taiga-ui/polymorpheus';
-import { Applicant } from '../../../models/applicant.model';
 import {
   RadioComponent,
   radioParamsInterface,
 } from '../../../shared/ui/radio/radio.component';
 import { getLocInArc, locArcInterface } from '../../../utils/infoApplication';
 import { ExitModalComponent } from '../exit-modal/exit-modal.component';
+import { Applicant } from '../../../models/applicant.model'
 
 @Component({
   selector: 'app-application',

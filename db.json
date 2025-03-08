@@ -139,29 +139,29 @@
       "nextLocationsId": "6",
       "archiveNumber": 102001,
       "comment": "Тут будет комментарий",
-      "isSnils": "1",
+      "isSnils": "3",
       "passport": {
         "isMain": "1",
         "isRegistration": "1",
-        "isChangePassport": "1"
+        "isChangePassport": "0"
       },
       "diploma": {
         "isTitlePage": "1",
         "isAttachmentPage": "1"
       },
       "statement": {
-        "isFirst": "1",
-        "isSecond": "1",
-        "isThird": "1"
+        "isFirst": "0",
+        "isSecond": "0",
+        "isThird": "0"
       },
       "opd": {
-        "isFirst": "1",
-        "isSecond": "1",
-        "isThird": "1",
-        "isFourth": "1"
+        "isFirst": "0",
+        "isSecond": "0",
+        "isThird": "0",
+        "isFourth": "0"
       },
-      "isMarriage": "1",
-      "isNameChange": "1",
+      "isMarriage": "3",
+      "isNameChange": "3",
       "person": {
         "id": "719240001",
         "firstName": "Ivan",
@@ -1196,7 +1196,6 @@
       }
     }
   ],
-
   "teachers": [
     {
       "id": "1",
